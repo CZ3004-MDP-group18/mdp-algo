@@ -1,26 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <ejs-diagram id="diagram"  :width='width' :height='height' :nodes='nodes' ></ejs-diagram>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Vue from 'vue';
+import { DiagramPlugin } from '@syncfusion/ej2-vue-diagrams';
 
+Vue.use(DiagramPlugin);
+let nodes = [
+  {
+    id: "node1",
+    width: 50,
+    height: 50,
+    offsetX: 500,
+    offsetY: 800,
+    annotations: [
+      {
+        content: "start"
+      }
+    ]
+  }
+]
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name: 'app',
+  data () {
+    return {
+      width: "1000",
+      height: "1000",
+      nodes: nodes
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import "../node_modules/@syncfusion/ej2-vue-diagrams/styles/material.css";
 </style>
