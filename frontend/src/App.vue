@@ -1,40 +1,34 @@
 <template>
   <div id="app">
-    <ejs-diagram id="diagram"  :width='width' :height='height' :nodes='nodes' ></ejs-diagram>
+
+    <VueCanvas/>
   </div>
 </template>
 
 <script>
-import Vue from 'vue';
-import { DiagramPlugin } from '@syncfusion/ej2-vue-diagrams';
+import VueCanvas from "./Stimulation.vue";
 
-Vue.use(DiagramPlugin);
-let nodes = [
-  {
-    id: "node1",
-    width: 50,
-    height: 50,
-    offsetX: 500,
-    offsetY: 800,
-    annotations: [
-      {
-        content: "start"
-      }
-    ]
-  }
-]
 export default {
-  name: 'app',
-  data () {
-    return {
-      width: "1000",
-      height: "1000",
-      nodes: nodes
-    }
+  name: "App",
+  components: {
+    VueCanvas
   }
-}
+};
 </script>
 
 <style>
-@import "../node_modules/@syncfusion/ej2-vue-diagrams/styles/material.css";
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  margin-top: 60px;
+  color: #2c3e50;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 </style>
