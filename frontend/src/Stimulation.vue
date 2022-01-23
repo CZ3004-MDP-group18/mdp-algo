@@ -26,7 +26,7 @@
         <b-form-input v-model="obstacle2.row" placeholder="Row number"></b-form-input>
         <b-form-input v-model="obstacle2.column" placeholder="Column number"></b-form-input>
 
-        <b-form-input list="my-list-id" v-model = "obstacle1.direction" placeholder="Direction"></b-form-input>
+        <b-form-input list="my-list-id" v-model = "obstacle2.direction" placeholder="Direction"></b-form-input>
         <b-card-text >Row: {{ obstacle2.row }}, Column: {{obstacle2.column}}, Direction: {{obstacle2.direction}}</b-card-text>
       </b-card>
 
@@ -55,12 +55,10 @@
       </b-card>
 
       <b-card>
-        <b-button variant = "info" :onclick="updateGrid">Send Data for Algo</b-button>
+        <b-button variant = "info" @click="updateGrid(gridArray)">Send Data for Algo</b-button>
       </b-card>
 
     </b-container>
-
-    <b-container>{{gridArray}}</b-container>
 
     <datalist id="my-list-id">
       <option
@@ -113,12 +111,34 @@ export default {
       canvasSize: 600,
       arenaSize: 200,
       resolution: 20,
-      gridArray: null
+      gridArray: [
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],]
     }
   },
 
   computed:{
-
+    grid(){
+      return this.gridArray;
+    }
   },
 
   methods: {
@@ -208,32 +228,32 @@ export default {
 
     },
 
-    updateGrid: function () {
+    updateGrid: function (gridArray) {
 
       // Change Obstacle 1
       let row1 = this.obstacle1.row - 1;
       let col1 = this.obstacle1.column - 1;
-      this.gridArray[row1][col1] = this.obstacle1.direction.charAt(0);
+      gridArray[row1][col1] = this.obstacle1.direction.charAt(0);
 
       // Change Obstacle 2
       let row2 = this.obstacle2.row - 1;
       let col2 = this.obstacle2.column - 1;
-      this.gridArray[row2][col2] = this.obstacle2.direction.charAt(0);
+      gridArray[row2][col2] = this.obstacle2.direction.charAt(0);
 
       // Change Obstacle 3
       let row3 = this.obstacle3.row - 1;
       let col3 = this.obstacle3.column - 1;
-      this.gridArray[row3][col3] = this.obstacle3.direction.charAt(0);
+      gridArray[row3][col3] = this.obstacle3.direction.charAt(0);
 
       // Change Obstacle 4
       let row4 = this.obstacle4.row - 1;
       let col4 = this.obstacle4.column - 1;
-      this.gridArray[row4][col4] = this.obstacle4.direction.charAt(0);
+      gridArray[row4][col4] = this.obstacle4.direction.charAt(0);
 
       // Change Obstacle 5
       let row5 = this.obstacle5.row - 1;
       let col5 = this.obstacle5.column - 1;
-      this.gridArray[row5][col5] = this.obstacle5.direction.charAt(0);
+      gridArray[row5][col5] = this.obstacle5.direction.charAt(0);
     }
   },
 
