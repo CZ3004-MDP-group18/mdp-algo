@@ -1,26 +1,243 @@
 <template>
   <div>
-    <div id="vue-canvas">
-      <h3>{{noOfObstacles}}</h3>
+    <h2>Stimulated Arena</h2>
+    <div>
+      <vue-p5
+          @setup=setup
+          @draw=draw></vue-p5>
     </div>
-    <h3></h3>
+
+    <b-container>
+      <b-row>
+        <b-col>No of Obstacles:</b-col>
+        <b-col>
+          <b-form-input v-model="noOfObstacles" placeholder="Enter number of obstacles"></b-form-input>
+        </b-col>
+      </b-row>
+
+      <b-card><h4>Obstacle 1</h4>
+        <b-form-input v-model="obstacle1.row" placeholder="Row number"></b-form-input>
+        <b-form-input v-model="obstacle1.column" placeholder="Column number"></b-form-input>
+        <b-form-input list="my-list-id" v-model = "obstacle1.direction" placeholder="Direction"></b-form-input>
+        <b-card-text >Row: {{ obstacle1.row }}, Column: {{obstacle1.column}}, Direction: {{obstacle1.direction}}</b-card-text>
+      </b-card>
+
+      <b-card><h4>Obstacle 2</h4>
+        <b-form-input v-model="obstacle2.row" placeholder="Row number"></b-form-input>
+        <b-form-input v-model="obstacle2.column" placeholder="Column number"></b-form-input>
+
+        <b-form-input list="my-list-id" v-model = "obstacle1.direction" placeholder="Direction"></b-form-input>
+        <b-card-text >Row: {{ obstacle2.row }}, Column: {{obstacle2.column}}, Direction: {{obstacle2.direction}}</b-card-text>
+      </b-card>
+
+      <b-card><h4>Obstacle 3</h4>
+        <b-form-input v-model="obstacle3.row" placeholder="Row number"></b-form-input>
+        <b-form-input v-model="obstacle3.column" placeholder="Column number"></b-form-input>
+
+        <b-form-input list="my-list-id" v-model = "obstacle3.direction" placeholder="Direction"></b-form-input>
+        <b-card-text >Row: {{ obstacle3.row }}, Column: {{obstacle3.column}}, Direction: {{obstacle3.direction}}</b-card-text>
+      </b-card>
+
+      <b-card><h4>Obstacle 4</h4>
+        <b-form-input v-model="obstacle4.row" placeholder="Row number"></b-form-input>
+        <b-form-input v-model="obstacle4.column" placeholder="Column number"></b-form-input>
+
+        <b-form-input list="my-list-id" v-model = "obstacle4.direction" placeholder="Direction"></b-form-input>
+        <b-card-text >Row: {{ obstacle4.row }}, Column: {{obstacle4.column}}, Direction: {{obstacle4.direction}}</b-card-text>
+      </b-card>
+
+      <b-card><h4>Obstacle 5</h4>
+        <b-form-input v-model="obstacle5.row" placeholder="Row number"></b-form-input>
+        <b-form-input v-model="obstacle5.column" placeholder="Column number"></b-form-input>
+
+        <b-form-input list="my-list-id" v-model = "obstacle5.direction" placeholder="Direction"></b-form-input>
+        <b-card-text >Row: {{ obstacle5.row }}, Column: {{obstacle5.column}}, Direction: {{obstacle5.direction}}</b-card-text>
+      </b-card>
+
+      <b-card>
+        <b-button variant = "info" :onclick="updateGrid">Send Data for Algo</b-button>
+      </b-card>
+
+    </b-container>
+
+    <b-container>{{gridArray}}</b-container>
+
+    <datalist id="my-list-id">
+      <option
+          v-for="direction in direction" :key="direction">{{ direction }}
+      </option>
+    </datalist>
+
+    <div id="vue-canvas"></div>
   </div>
 </template>
 
 <script>
+import p5 from "vue-p5";
 export default {
   name: "VueCanvas",
+  components: {
+    "vue-p5": p5
+  },
 
   data() {
     return {
-      noOfObstacles: 0,
-      direction: null,
-      coordX: 0,
-      coordY: 0
+      noOfObstacles: 5,
+      direction: ["North", "South", "East", "West"],
+      obstacle1: {
+        row:null,
+        column:null,
+        direction: null
+      },
+      obstacle2: {
+        row:null ,
+        column:null,
+        direction: null
+      },
+      obstacle3: {
+        row:null ,
+        column:null,
+        direction: null
+      },
+      obstacle4: {
+        row:null ,
+        column:null,
+        direction: null
+      },
+      obstacle5: {
+        row:null ,
+        column:null,
+        direction: null
+
+      },
+      canvasSize: 600,
+      arenaSize: 200,
+      resolution: 20,
+      gridArray: null
     }
   },
 
-  mounted() {
+  computed:{
+
+  },
+
+  methods: {
+    sendData: function(){
+
+    },
+
+
+    setup: function (canvas){
+      canvas.createCanvas(this.canvasSize, this.canvasSize);
+      //canvas.parent("vue-canvas");
+      //p5.createGrid();
+      canvas.position(50, 5);
+    },
+
+    draw: function(canvas){
+      canvas.background('lightblue');
+      //Draw Grid
+      for (var x = 0; x < this.canvasSize; x += this.canvasSize / this.resolution) {
+        for (var y = 0; y < this.canvasSize; y += this.canvasSize / this.resolution) {
+          canvas.stroke(0);
+          canvas.strokeWeight(0.05);
+          canvas.line(x, 0, x, this.canvasSize);
+          canvas.line(0, y, this.canvasSize, y);
+        }
+      }
+
+      //Draw Robot
+      canvas.fill("lightgreen");
+      canvas.rect(0, 510, 90, 90);
+
+      //Draw Obstacles
+      ////Obstacle 1
+      let X1 = (parseInt(this.obstacle1.row) -1);
+      let Y1 = (parseInt(this.obstacle1.column) -1);
+
+      X1 = X1 * 30;
+      Y1 = Y1 * 30;
+
+
+      canvas.fill(155);
+      canvas.rect(X1, Y1, 30, 30);
+
+      ////Obstacle 2
+      let X2 = (parseInt(this.obstacle2.row) -1);
+      let Y2 = (parseInt(this.obstacle2.column) -1);
+
+      X2 = X2 * 30;
+      Y2 = Y2 * 30;
+
+
+      canvas.fill(155);
+      canvas.rect(X2, Y2, 30, 30);
+
+      ////Obstacle 3
+      let X3 = (parseInt(this.obstacle3.row) -1);
+      let Y3 = (parseInt(this.obstacle3.column) -1);
+
+      X3 = X3 * 30;
+      Y3 = Y3 * 30;
+
+
+      canvas.fill(155);
+      canvas.rect(X3, Y3, 30, 30);
+
+      ////Obstacle 4
+      let X4 = (parseInt(this.obstacle4.row) -1);
+      let Y4 = (parseInt(this.obstacle4.column) -1);
+
+      X4 = X4 * 30;
+      Y4 = Y4 * 30;
+
+
+      canvas.fill(155);
+      canvas.rect(X4, Y4, 30, 30);
+
+      ////Obstacle 5
+      let X5 = (parseInt(this.obstacle5.row) -1);
+      let Y5 = (parseInt(this.obstacle5.column) -1);
+
+      X5 = X5 * 30;
+      Y5 = Y5 * 30;
+
+
+      canvas.fill(155);
+      canvas.rect(X5, Y5, 30, 30);
+
+    },
+
+    updateGrid: function () {
+
+      // Change Obstacle 1
+      let row1 = this.obstacle1.row - 1;
+      let col1 = this.obstacle1.column - 1;
+      this.gridArray[row1][col1] = this.obstacle1.direction.charAt(0);
+
+      // Change Obstacle 2
+      let row2 = this.obstacle2.row - 1;
+      let col2 = this.obstacle2.column - 1;
+      this.gridArray[row2][col2] = this.obstacle2.direction.charAt(0);
+
+      // Change Obstacle 3
+      let row3 = this.obstacle3.row - 1;
+      let col3 = this.obstacle3.column - 1;
+      this.gridArray[row3][col3] = this.obstacle3.direction.charAt(0);
+
+      // Change Obstacle 4
+      let row4 = this.obstacle4.row - 1;
+      let col4 = this.obstacle4.column - 1;
+      this.gridArray[row4][col4] = this.obstacle4.direction.charAt(0);
+
+      // Change Obstacle 5
+      let row5 = this.obstacle5.row - 1;
+      let col5 = this.obstacle5.column - 1;
+      this.gridArray[row5][col5] = this.obstacle5.direction.charAt(0);
+    }
+  },
+
+  /*mounted() {
     const script = function (p5) {
       //var speed = 2;
       //var posX = 35;
@@ -41,7 +258,7 @@ export default {
         canvas = p5.createCanvas(canvasSize, canvasSize);
         canvas.parent("vue-canvas");
         //p5.createGrid();
-        canvas.position(50, 50);
+        canvas.position(50, 100);
       };
       // NOTE: Draw is here
       p5.draw = () => {
@@ -61,9 +278,9 @@ export default {
         // Plot obstacle
         this.mouseClicked();
 
-        /*if(p5.mouseIsPressed){
+        /!*if(p5.mouseIsPressed){
           p5.triggerMouse(p5.mouseX, p5.mouseY);
-        }*/
+        }*!/
 
 
         //const degree = p5.frameCount * 3;
@@ -76,11 +293,11 @@ export default {
         //p5.strokeWeight(5);
         //p5.ellipse(posX, y, 50, 50);
         //p5.pop();
-        /*posX += speed;
+        /!*posX += speed;
 
         if (posX > p5.width - 35 || posX < 35) {
           speed *= -1;
-        }*/
+        }*!/
       };
 
       //Mouse clicking Event
@@ -109,7 +326,7 @@ export default {
           p5.fill(color)
           p5.rect(x, y, 30, 30);
 
-          /*for(var i = 0; i < grid.length; i++)
+          /!*for(var i = 0; i < grid.length; i++)
           {
             if(p5.mouseX >= grid[i].x && p5.mouseX <= grid[i].x+grid[i].size)
             {
@@ -118,11 +335,11 @@ export default {
                 grid[i].trigger();
               }
             }
-          }*/
+          }*!/
         }
       }
 
-      /*p5.showGrid = () => {
+      /!*p5.showGrid = () => {
         for(var i = 0; i < grid.length; i++)
         {
           grid[i].show();
@@ -157,13 +374,13 @@ export default {
         for (var i = 0; i < resolution * resolution; i++) {
           new p5.Pixel();
         }
-      }*/
+      }*!/
 
     };
     // NOTE: Use p5 as an instance mode
     const P5 = require("p5");
     new P5(script);
-  }
+  }*/
 };
 </script>
 
