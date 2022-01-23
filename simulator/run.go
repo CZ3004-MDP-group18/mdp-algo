@@ -1,15 +1,25 @@
 package simulator
 
-import "mdp_algo/common"
+import (
+	"mdp_algo/session"
+	"sync"
+)
 
-var startPosition = common.Position{
-	Cell: common.Cell{
-		Xcoord: 1,
-		Ycoord: 1,
-	},
-	Direction: common.North,
+var sess = session.NewSession(height, width, startPosition)
+
+// 1 thread running
+var mutex sync.Mutex
+
+func setArena(arena [][]string) {
+	mutex.Lock()
+	defer mutex.Unlock()
+
+	sess.LoadArena(arena)
 }
 
-func hamiltonPathRun() {
+func getHamiltonPath() session.Plan {
+	mutex.Lock()
+	defer mutex.Unlock()
 
+	return sess.HamiltonPath()
 }

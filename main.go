@@ -2,29 +2,25 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"log"
+	"mdp_algo/simulator"
 	"net/http"
 )
 
 func main() {
 	fmt.Println("Hello MDP")
 
-	//http.HandleFunc("/", homePageHandler)
+	router := gin.Default()
 
 	// Serve static files from the frontend/dist directory.
-	fs := http.FileServer(http.Dir("./frontend/dist"))
-	http.Handle("/", fs)
+	router.StaticFS("/", http.Dir("./frontend/dist"))
+	router.POST("/set_arena", simulator.HandleSetArena)
+	router.POST("/hamilton_path", simulator.HandleGetHamiltonPath)
 
 	fmt.Println("Server listening on port 3000")
-	log.Panic(
-		http.ListenAndServe(":3000", nil),
-	)
+	log.Fatal(router.Run(":3000"))
 }
-
-/*func homePageHandler(w http.ResponseWriter, r *http.Request) {
-	_, err := fmt.Fprintf(w, "hello MDP")
-	checkError(err)
-}*/
 
 func checkError(err error) {
 	if err != nil {

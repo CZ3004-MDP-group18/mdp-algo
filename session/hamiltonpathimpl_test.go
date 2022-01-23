@@ -52,8 +52,8 @@ func (s *HamiltonPathTestSuite) SetupTest() {
 
 func (s *HamiltonPathTestSuite) TestHamiltonPath() {
 	plan := s.Session.HamiltonPath()
-	fmt.Println("cost: ", plan.cost)
-	for i, pos := range plan.path {
+	fmt.Println("cost: ", plan.Cost)
+	for i, pos := range plan.Path {
 		if s.arena[pos.Cell.Ycoord][pos.Cell.Xcoord] == "O" {
 			s.arena[pos.Cell.Ycoord][pos.Cell.Xcoord] = strconv.Itoa(i)
 		} else {

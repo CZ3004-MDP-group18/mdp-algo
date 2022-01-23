@@ -11,6 +11,6 @@ type Session interface {
 }
 
 type Plan struct {
-	cost int
-	path common.Path
+	Cost int
+	Path common.Path
 }

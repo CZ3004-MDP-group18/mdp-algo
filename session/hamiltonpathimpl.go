@@ -160,11 +160,11 @@ func (s *sessionImpl) HamiltonPath() Plan {
 				s.setPlanCache(start, imageCell, localPlan)
 			}
 
-			cost += localPlan.cost
-			path = append(path, localPlan.path[1:]...)
+			cost += localPlan.Cost
+			path = append(path, localPlan.Path[1:]...)
 			// TODO: Add take image here
 
-			start = localPlan.path[len(localPlan.path)-1]
+			start = localPlan.Path[len(localPlan.Path)-1]
 		}
 
 		// Update with best path
@@ -176,8 +176,8 @@ func (s *sessionImpl) HamiltonPath() Plan {
 	}
 
 	return Plan{
-		cost: optimalCost,
-		path: optimalPath,
+		Cost: optimalCost,
+		Path: optimalPath,
 	}
 }
 
@@ -239,8 +239,8 @@ func (s *sessionImpl) shortestPath(
 	}
 	if moveableNode[start] == nil {
 		return Plan{
-			cost: math.MaxInt64,
-			path: nil,
+			Cost: math.MaxInt64,
+			Path: nil,
 		}
 	}
 	moveableNode[start].shortestDistance = 0
@@ -286,8 +286,8 @@ func (s *sessionImpl) shortestPath(
 
 	if len(goals) == 0 {
 		return Plan{
-			cost: math.MaxInt64,
-			path: nil,
+			Cost: math.MaxInt64,
+			Path: nil,
 		}
 	}
 
@@ -306,7 +306,7 @@ func (s *sessionImpl) shortestPath(
 		goal = goal.shortestFrom
 	}
 	return Plan{
-		cost: cost,
-		path: path,
+		Cost: cost,
+		Path: path,
 	}
 }

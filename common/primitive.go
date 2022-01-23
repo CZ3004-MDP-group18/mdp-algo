@@ -40,14 +40,14 @@ var MoveName = map[Move]string{
 
 // Cell : 2d vector
 type Cell struct {
-	Xcoord int
-	Ycoord int
+	Xcoord int `json:"x"`
+	Ycoord int `json:"y"`
 }
 
 // Position : position of the robot (cell, direction)
 type Position struct {
-	Cell      Cell
-	Direction Direction
+	Cell      Cell      `json:"cell"`
+	Direction Direction `json:"direction""`
 }
 
 // Path : sequence of consecutive positions
@@ -202,6 +202,13 @@ func (current Position) Difference(next Position) (move Move) {
 		}
 	}
 	panic("No possible move")
+}
+
+func (t Transition) ToStringArray() (arr []string) {
+	for _, move := range t {
+		arr = append(arr, MoveName[move])
+	}
+	return
 }
 
 func (t Transition) Log() {
