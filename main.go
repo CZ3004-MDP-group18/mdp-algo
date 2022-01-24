@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"log"
 	"mdp_algo/simulator"
@@ -12,6 +13,8 @@ func main() {
 	fmt.Println("Hello MDP")
 
 	router := gin.Default()
+	// Enable all origins
+	router.Use(cors.Default())
 
 	// Serve static files from the frontend/dist directory.
 	router.StaticFS("/", http.Dir("./frontend/dist"))
