@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 import { BootstrapVue} from 'bootstrap-vue'
-import router from "./index.js";
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -17,7 +16,6 @@ Vue.use(BootstrapVue)
 })*/
 
 new Vue({
-  router,
   render: h => h(App),
   components:{
     App

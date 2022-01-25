@@ -1,17 +1,17 @@
 <template>
   <div id="app">
 
-    <router-view/>
+    <VueCanvas/>
   </div>
 </template>
 
 <script>
-//import VueCanvas from "./Stimulation.vue";
+import VueCanvas from "./Stimulation.vue";
 
 export default {
   name: "App",
   components: {
-    //VueCanvas
+    VueCanvas
   }
 };
 </script>
