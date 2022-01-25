@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import { BootstrapVue} from 'bootstrap-vue'
-//import axios from 'axios';
+import router from "./index.js";
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -13,10 +13,11 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 
 /*const base = axios.create({
-  baseURL: "http://localhost:8080/api"
+  baseURL: "127.0.0.1:3000/"
 })*/
 
 new Vue({
+  router,
   render: h => h(App),
   components:{
     App
