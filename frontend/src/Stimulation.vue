@@ -16,13 +16,17 @@
       </b-row>
 
       <b-card>
-        <b-button pill variant = "outline-secondary" :pressed.sync = "mapDescriptor">Map Descriptor</b-button>
-        <b-button pill variant = "outline-secondary" :pressed.sync = "selfInput">Self Input</b-button>
+        <b-button pill variant = "outline-secondary"
+                  :pressed.sync = "mapDescriptor"
+                  @click = "setInput">Map Descriptor</b-button>
+        <b-button pill variant = "outline-secondary"
+                  :pressed.sync = "selfInput"
+                  @click = "setInput">Self Input</b-button>
       </b-card>
 
 
       <b-container v-if="mapDescriptor">
-        <textarea v-model="descriptor" placeholder="Enter grid with obstacle direction"></textarea>
+        <textarea v-model="descriptor" placeholder="Enter grid with obstacle direction" style="width:500px; height: 300px"></textarea>
         <b-card>
 <!--          <b-button variant = "outline-primary" @click="getObstacle">Plot Obstacles</b-button>-->
           <b-button variant = "info" @click="updateGrid(gridArray)">Send Data for Algo</b-button>
@@ -207,7 +211,7 @@ export default {
 
     draw: function(canvas){
       canvas.background('lightblue');
-      canvas.frameRate(3);
+      canvas.frameRate(2.5);
       //Draw Grid
       for (let x = 0; x < this.canvasSize; x += this.canvasSize / this.resolution) {
         for (let y = 0; y < this.canvasSize; y += this.canvasSize / this.resolution) {
@@ -571,8 +575,14 @@ export default {
 
     },
 
-    getObstacle: function(){}
-
+    setInput: function(){
+      if (this.mapDescriptor){
+        this.selfInput = false;
+      }
+      if(this.selfInput){
+        this.mapDescriptor = false;
+      }
+    }
 
   },
 
