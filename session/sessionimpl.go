@@ -147,6 +147,9 @@ func (s *sessionImpl) getVirtualCellState(cell common.Cell) cellState {
 	return cellState{state: obstacle}
 }
 
-func (s *sessionImpl) FastestPath() (int, common.Path) {
-	return 0, nil
+func (s *sessionImpl) FastestPath() Plan {
+	return Plan{
+		Cost: 0,
+		Path: nil,
+	}
 }

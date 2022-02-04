@@ -4,7 +4,7 @@ import "mdp_algo/common"
 
 type Session interface {
 	HamiltonPath() Plan
-	FastestPath() (cost int, path common.Path)
+	FastestPath() Plan
 
 	LoadArena(arena [][]string)
 	Reset()
