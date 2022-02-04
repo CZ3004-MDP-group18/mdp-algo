@@ -32,6 +32,10 @@ type sessionImpl struct {
 	imageCells    []common.Cell
 	takePositions map[common.Cell][]common.Position
 	planCache     map[common.Position]map[common.Cell]Plan
+
+	//Fastest Path
+	distance  int
+	pathCache map[common.Position]map[common.Cell]Plan
 }
 
 func NewSession(height int, width int, current common.Position) Session {
@@ -145,11 +149,4 @@ func (s *sessionImpl) getVirtualCellState(cell common.Cell) cellState {
 		return s.virtualArena[cell.Ycoord][cell.Xcoord]
 	}
 	return cellState{state: obstacle}
-}
-
-func (s *sessionImpl) FastestPath() Plan {
-	return Plan{
-		Cost: 0,
-		Path: nil,
-	}
 }

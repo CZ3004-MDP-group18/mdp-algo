@@ -47,7 +47,7 @@ type Cell struct {
 // Position : position of the robot (cell, direction)
 type Position struct {
 	Cell      Cell      `json:"cell"`
-	Direction Direction `json:"direction""`
+	Direction Direction `json:"direction"`
 }
 
 // Path : sequence of consecutive positions
@@ -64,7 +64,7 @@ func (current Direction) IsVertical() bool {
 }
 
 func (current Direction) Rotate(move Move) Direction {
-	next := 0
+	next := int(current)
 	switch move {
 	case ForwardRight, BackwardLeft:
 		next = (int(current) + 3) % 4
