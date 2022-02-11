@@ -18,6 +18,7 @@ func main() {
 
 	// Serve static files from the frontend/dist directory.
 	router.StaticFS("/", http.Dir("./frontend/dist"))
+	router.POST("/health_check", func(c *gin.Context) { c.JSON(http.StatusOK, gin.H{}) })
 	router.POST("/set_arena", simulator.HandleSetArena)
 	router.POST("/hamilton_path", simulator.HandleGetHamiltonPath)
 
