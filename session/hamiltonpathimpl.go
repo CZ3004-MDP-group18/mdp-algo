@@ -114,12 +114,14 @@ func (s *sessionImpl) getPlanCache(start common.Position, imageCell common.Cell)
 	return s.planCache[start][imageCell], true
 }
 
-func (s *sessionImpl) HamiltonPath() Plan {
+func (s *sessionImpl) HamiltonPath() HamiltonPlan {
 	// Init plan cache
 	s.planCache = make(map[common.Position]map[common.Cell]Plan)
 
 	optimalCost := math.MaxInt64
 	var optimalPath common.Path
+	var optimalOrder []common.Cell
+	var optimalDetectImageIndices []int
 
 	s.initTakePositions()
 	// Generate permutations of image obstacles
@@ -135,6 +137,8 @@ func (s *sessionImpl) HamiltonPath() Plan {
 		start := s.current
 		cost := 0
 		path := common.Path{start}
+		var detectImageIndices []int
+
 		// Use shortest path algo to find path from one imageCell to another
 		for _, imageCell := range imageCellOrders {
 			takePositions := s.takePositions[imageCell]
@@ -160,9 +164,15 @@ func (s *sessionImpl) HamiltonPath() Plan {
 				s.setPlanCache(start, imageCell, localPlan)
 			}
 
+			if localPlan.Cost == math.MaxInt64 { // check if local plan fails
+				cost = math.MaxInt64
+				break
+			}
 			cost += localPlan.Cost
 			path = append(path, localPlan.Path[1:]...)
-			// TODO: Add take image here
+
+			// The robot will detect image at these indices
+			detectImageIndices = append(detectImageIndices, len(path)-2)
 
 			start = localPlan.Path[len(localPlan.Path)-1]
 		}
@@ -171,13 +181,17 @@ func (s *sessionImpl) HamiltonPath() Plan {
 		if cost < optimalCost {
 			optimalCost = cost
 			optimalPath = path
+			optimalOrder = imageCellOrders
+			optimalDetectImageIndices = detectImageIndices
 		}
 		fmt.Println("Permutation", permIndex)
 	}
 
-	return Plan{
-		Cost: optimalCost,
-		Path: optimalPath,
+	return HamiltonPlan{
+		Cost:               optimalCost,
+		Path:               optimalPath,
+		Order:              optimalOrder,
+		DetectImageIndices: optimalDetectImageIndices,
 	}
 }
 

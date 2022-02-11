@@ -25,8 +25,10 @@ func HandleGetHamiltonPath(c *gin.Context) {
 	plan := getHamiltonPath()
 
 	c.JSON(http.StatusOK, gin.H{
-		"cost":       plan.Cost,
-		"path":       plan.Path,
-		"transition": plan.Path.ToTransition().ToStringArray(),
+		"cost":         plan.Cost,
+		"path":         plan.Path,
+		"transition":   plan.Path.ToTransition().ToStringArray(),
+		"order":        plan.Order,
+		"detect_image": plan.DetectImageIndices,
 	})
 }

@@ -30,12 +30,12 @@ var AllMoves = []Move{Forward, Backward, ForwardRight, ForwardLeft, BackwardRigh
 var AllTurnMoves = []Move{ForwardRight, ForwardLeft, BackwardRight, BackwardLeft}
 
 var MoveName = map[Move]string{
-	Forward:       "Forward",
-	Backward:      "Backward",
-	ForwardRight:  "ForwardRight",
-	ForwardLeft:   "ForwardLeft",
-	BackwardRight: "BackwardRight",
-	BackwardLeft:  "BackwardLeft",
+	Forward:       "W",
+	Backward:      "S",
+	ForwardRight:  "E",
+	ForwardLeft:   "Q",
+	BackwardRight: "D",
+	BackwardLeft:  "A",
 }
 
 // Cell : 2d vector

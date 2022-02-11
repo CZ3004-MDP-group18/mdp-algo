@@ -17,7 +17,7 @@ func setArena(arena [][]string) {
 	sess.LoadArena(arena)
 }
 
-func getHamiltonPath() session.Plan {
+func getHamiltonPath() session.HamiltonPlan {
 	mutex.Lock()
 	defer mutex.Unlock()
 
