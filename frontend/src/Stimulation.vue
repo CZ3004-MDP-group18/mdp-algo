@@ -29,7 +29,8 @@
         <textarea v-model="descriptor" placeholder="Enter grid with obstacle direction" style="width:500px; height: 300px"></textarea>
         <b-card>
 <!--          <b-button variant = "outline-primary" @click="getObstacle">Plot Obstacles</b-button>-->
-          <b-button variant = "info" @click="updateGrid(gridArray)">Send Data for Algo</b-button>
+          <b-button variant = "info" @click="updateGrid(gridArray)">Plot Obstacles</b-button>
+          <b-button variant = "info" @click="getPath">Get Path</b-button>
         </b-card>
       </b-container>
 
@@ -76,6 +77,7 @@
 
       <b-card>
         <b-button variant = "info" @click="updateGrid(gridArray)">Send Data for Algo</b-button>
+        <b-button variant = "info" @click="getPath">Get Path</b-button>
       </b-card>
       </b-container>
 
@@ -509,7 +511,6 @@ export default {
 
     updateGrid: function (gridArray) {
 
-
       if (this.selfInput) {
 
 
@@ -570,9 +571,13 @@ export default {
       }
 
       this.sendData();
-      this.getData();
+      //this.getData();
       //this.pathGrid = JSON.parse(JSON.stringify(this.pathGrid));
 
+    },
+
+    getPath: function(){
+      this.getData();
     },
 
     setInput: function(){
