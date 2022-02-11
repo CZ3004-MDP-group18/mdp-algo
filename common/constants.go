@@ -1,4 +1,4 @@
 package common
 
-var TurningRadius = 2
-
+var FrontRadius = 1
+var SideRadius = 4

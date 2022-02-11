@@ -6,6 +6,8 @@ import (
 )
 
 func TestTransition(t *testing.T) {
+	FrontRadius = 1
+	SideRadius = 4
 	start := Position{
 		Cell: Cell{
 			Xcoord: 5,
@@ -28,7 +30,7 @@ func TestTransition(t *testing.T) {
 		{
 			Transition{ForwardRight},
 			Position{
-				Cell:      Cell{Xcoord: 7, Ycoord: 7},
+				Cell:      Cell{Xcoord: 6, Ycoord: 9},
 				Direction: South,
 			},
 		},
@@ -39,13 +41,16 @@ func TestTransition(t *testing.T) {
 		{
 			Transition{BackwardLeft},
 			Position{
-				Cell:      Cell{Xcoord: 3, Ycoord: 3},
+				Cell:      Cell{Xcoord: 4, Ycoord: 1},
 				Direction: South,
 			},
 		},
 		{
 			Transition{ForwardLeft, BackwardLeft},
-			start,
+			Position{
+				Cell:      Cell{Xcoord: 2, Ycoord: 2},
+				Direction: East,
+			},
 		},
 	}
 
@@ -56,6 +61,8 @@ func TestTransition(t *testing.T) {
 }
 
 func TestPosition_Footprint(t *testing.T) {
+	FrontRadius = 2
+	SideRadius = 2
 	start := Position{
 		Cell: Cell{
 			Xcoord: 13,
@@ -108,14 +115,41 @@ func TestPosition_Footprint(t *testing.T) {
 	}
 	assert.ElementsMatch(t, expected, footprint)
 
-	// Increase turning radius
-	TurningRadius = 3
+	FrontRadius = 3
+	SideRadius = 3
+
+	start = Position{
+		Cell: Cell{
+			Xcoord: 5,
+			Ycoord: 5,
+		},
+		Direction: East,
+	}
+
 	footprint = start.Footprint(BackwardRight)
 	expected = []Cell{
 		{Xcoord: 2, Ycoord: 5}, {Xcoord: 3, Ycoord: 5}, {Xcoord: 4, Ycoord: 5}, {Xcoord: 5, Ycoord: 5},
 		{Xcoord: 2, Ycoord: 6}, {Xcoord: 3, Ycoord: 6}, {Xcoord: 4, Ycoord: 6},
 		{Xcoord: 2, Ycoord: 7}, {Xcoord: 3, Ycoord: 7},
 		{Xcoord: 2, Ycoord: 8},
+	}
+	assert.ElementsMatch(t, expected, footprint)
+
+	FrontRadius = 1
+	SideRadius = 4
+
+	start = Position{
+		Cell: Cell{
+			Xcoord: 10,
+			Ycoord: 10,
+		},
+		Direction: West,
+	}
+
+	footprint = start.Footprint(ForwardLeft)
+	expected = []Cell{
+		{Xcoord: 10, Ycoord: 10},
+		{Xcoord: 9, Ycoord: 10}, {Xcoord: 9, Ycoord: 11}, {Xcoord: 9, Ycoord: 12}, {Xcoord: 9, Ycoord: 13}, {Xcoord: 9, Ycoord: 14},
 	}
 	assert.ElementsMatch(t, expected, footprint)
 }

@@ -150,3 +150,7 @@ func (s *sessionImpl) getVirtualCellState(cell common.Cell) cellState {
 	}
 	return cellState{state: obstacle}
 }
+
+func (s *sessionImpl) FastestPath() Plan {
+	return Plan{}
+}

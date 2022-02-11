@@ -89,13 +89,15 @@ func (current Position) Transition(transition ...Move) (next Position) {
 			}
 			next = next.translate(dist)
 		} else {
-			dist := TurningRadius
+			frontDist := FrontRadius
+			sideDist := SideRadius
 			if move == BackwardRight || move == BackwardLeft {
-				dist = -TurningRadius
+				frontDist = -frontDist
+				sideDist = -sideDist
 			}
-			next = next.translate(dist)
+			next = next.translate(frontDist)
 			next.Direction = next.Direction.Rotate(move)
-			next = next.translate(dist)
+			next = next.translate(sideDist)
 		}
 	}
 
@@ -136,37 +138,28 @@ func (current Position) Footprint(move Move) (footprint []Cell) {
 	for mid.Cell.Xcoord != next.Cell.Xcoord && mid.Cell.Ycoord != next.Cell.Ycoord {
 		mid = mid.Transition(translateMove)
 	}
+	mid.Direction = next.Direction
 
-	// Position that have diff x or y compare to mid
-	xDiff, yDiff := current, next
-	if mid.Cell.Xcoord == current.Cell.Xcoord {
-		xDiff, yDiff = next, current
-	}
-
-	incrY := 1
-	if mid.Cell.Ycoord > yDiff.Cell.Ycoord {
-		incrY = -1
-	}
-	incrX := 1
-	if mid.Cell.Xcoord > xDiff.Cell.Xcoord {
-		incrX = -1
-	}
-
-	for xStart := mid.Cell.Xcoord; ; xStart += incrX {
-		d := Abs(xStart - mid.Cell.Xcoord)
-		for yStart := mid.Cell.Ycoord; ; yStart += incrY {
-			footprint = append(footprint, Cell{
-				Xcoord: xStart,
-				Ycoord: yStart,
-			})
-			if yStart == yDiff.Cell.Ycoord-d*incrY {
-				break
-			}
+	lastTmp := current
+	for lastTmp.Cell != mid.Cell {
+		footprint = append(footprint, lastTmp.Cell)
+		tmp := lastTmp
+		for tmp.Cell != mid.Cell {
+			tmp = tmp.Transition(translateMove)
+			footprint = append(footprint, tmp.Cell)
 		}
-		if xStart == xDiff.Cell.Xcoord {
-			break
-		}
+		mid = mid.Transition(translateMove)
+		lastTmp.Direction = next.Direction
+		lastTmp = lastTmp.Transition(translateMove)
+		lastTmp.Direction = current.Direction
+		lastTmp = lastTmp.Transition(translateMove)
 	}
+
+	for mid.Cell != next.Cell {
+		footprint = append(footprint, mid.Cell)
+		mid = mid.Transition(translateMove)
+	}
+	footprint = append(footprint, mid.Cell)
 
 	return
 }
