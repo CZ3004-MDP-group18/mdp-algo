@@ -541,10 +541,12 @@ export default {
       }
 
       if (this.mapDescriptor){
-        const splitString = this.descriptor.split("");
+        const splitString = this.descriptor.replace(/(\r\n|\n|\r| )/gm, "").split("");
         console.log(splitString);
 
         const size = 20;
+        console.assert(splitString.length === size * size, "Map Descriptor Length is not correct");
+
         const arrayOfArrays = [];
         for (var i=0; i<splitString.length; i+=size) {
           arrayOfArrays.push(splitString.slice(i,i+size));
