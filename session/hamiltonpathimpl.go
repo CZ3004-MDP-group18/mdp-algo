@@ -41,8 +41,8 @@ type expansion struct {
 	distance int
 }
 
-// cellsToTakeImage find cells to take image from the image cell
-func (s *sessionImpl) cellsToTakeImage(cell common.Cell, cs cellState) (positions []common.Position) {
+// cellsToDetectImage find cells to detect image from the image cell
+func (s *sessionImpl) cellsToDetectImage(cell common.Cell, cs cellState) (positions []common.Position) {
 	currentPos := common.Position{
 		Cell:      cell,
 		Direction: cs.direction,
@@ -75,12 +75,12 @@ func (s *sessionImpl) cellsToTakeImage(cell common.Cell, cs cellState) (position
 	return
 }
 
-// initTakePositions find optimal positions to take imageCells
-func (s *sessionImpl) initTakePositions() {
-	takePositions := make(map[common.Cell][]common.Position)
+// initDetectPositions find optimal positions to detect imageCells
+func (s *sessionImpl) initDetectPositions() {
+	detectPositions := make(map[common.Cell][]common.Position)
 	s.imageCells = nil
 
-	// Use virtual arena to get the obstacles and find optimal cells to take picture
+	// Use virtual arena to get the obstacles and find optimal cells to detect image
 	for Ycoord := 0; Ycoord < s.height; Ycoord++ {
 		for Xcoord := 0; Xcoord < s.width; Xcoord++ {
 			cell := common.Cell{
@@ -89,12 +89,12 @@ func (s *sessionImpl) initTakePositions() {
 			}
 			cs := s.getVirtualCellState(cell)
 			if cs.state == obstacle && cs.hasFace {
-				takePositions[cell] = s.cellsToTakeImage(cell, cs)
+				detectPositions[cell] = s.cellsToDetectImage(cell, cs)
 				s.imageCells = append(s.imageCells, cell)
 			}
 		}
 	}
-	s.takePositions = takePositions
+	s.detectPositions = detectPositions
 }
 
 func (s *sessionImpl) setPlanCache(start common.Position, imageCell common.Cell, plan Plan) {
@@ -114,24 +114,20 @@ func (s *sessionImpl) getPlanCache(start common.Position, imageCell common.Cell)
 	return s.planCache[start][imageCell], true
 }
 
-func (s *sessionImpl) HamiltonPath() HamiltonPlan {
-	// Init plan cache
-	s.planCache = make(map[common.Position]map[common.Cell]Plan)
-
+func (s *sessionImpl) hamiltonPath(imageCells []common.Cell) HamiltonPlan {
 	optimalCost := math.MaxInt64
 	var optimalPath common.Path
 	var optimalOrder []common.Cell
 	var optimalDetectImageIndices []int
 
-	s.initTakePositions()
 	// Generate permutations of image obstacles
-	imageNum := len(s.imageCells)
+	imageNum := len(imageCells)
 	perms := combin.Permutations(imageNum, imageNum)
 
 	for permIndex, perm := range perms {
 		var imageCellOrders []common.Cell
 		for _, i := range perm {
-			imageCellOrders = append(imageCellOrders, s.imageCells[i])
+			imageCellOrders = append(imageCellOrders, imageCells[i])
 		}
 
 		start := s.current
@@ -141,10 +137,10 @@ func (s *sessionImpl) HamiltonPath() HamiltonPlan {
 
 		// Use shortest path algo to find path from one imageCell to another
 		for _, imageCell := range imageCellOrders {
-			takePositions := s.takePositions[imageCell]
+			detectPositions := s.detectPositions[imageCell]
 			goalTest := func(position common.Position) bool {
-				for _, takePosition := range takePositions {
-					if position == takePosition {
+				for _, detectPosition := range detectPositions {
+					if position == detectPosition {
 						return true
 					}
 				}
@@ -159,7 +155,7 @@ func (s *sessionImpl) HamiltonPath() HamiltonPlan {
 			localPlan, exist := s.getPlanCache(start, imageCell)
 			if !exist {
 				localPlan = s.shortestPath(
-					start, goalTest, len(takePositions), moveableTest, hamiltonCostModel,
+					start, goalTest, len(detectPositions), moveableTest, hamiltonCostModel,
 				)
 				s.setPlanCache(start, imageCell, localPlan)
 			}
@@ -195,6 +191,39 @@ func (s *sessionImpl) HamiltonPath() HamiltonPlan {
 	}
 }
 
+func (s *sessionImpl) HamiltonPath() HamiltonPlan {
+	// Init plan cache
+	s.planCache = make(map[common.Position]map[common.Cell]Plan)
+
+	s.initDetectPositions()
+
+	hamiltonPath := s.hamiltonPath(s.imageCells)
+
+	// Fallback plan in case some imageCells are not reachable
+	if hamiltonPath.Cost == math.MaxInt64 {
+		reachableImageCellSet := make(map[common.Cell]bool)
+
+		// Check planCache to find reachable imageCell
+		for _, cellToPlan := range s.planCache {
+			for imageCell, plan := range cellToPlan {
+				if plan.Cost < math.MaxInt64 {
+					reachableImageCellSet[imageCell] = true
+				}
+			}
+		}
+
+		var reachableImageCells []common.Cell
+		for imageCell := range reachableImageCellSet {
+			reachableImageCells = append(reachableImageCells, imageCell)
+		}
+
+		hamiltonPath = s.hamiltonPath(reachableImageCells)
+	}
+
+	return hamiltonPath
+}
+
+// expand is a helper function for the shortestPath
 func (s *sessionImpl) expand(
 	current common.Position,
 	moveableTest func(common.Cell) bool,
@@ -216,6 +245,7 @@ func (s *sessionImpl) expand(
 	return
 }
 
+// shortestPath implements A* algorithm to find route from start position to reach goal
 func (s *sessionImpl) shortestPath(
 	start common.Position,
 	goalTest func(common.Position) bool,
