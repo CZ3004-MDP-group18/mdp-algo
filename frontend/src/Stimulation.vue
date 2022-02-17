@@ -111,73 +111,74 @@ export default {
       arenaSize: 200,
       resolution: 20,
       gridArray: [
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-  ],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+        ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+      ],
       // Recieve Actual algo from backend
       pathGrid: null,
-      count:0,
+      count: 0,
 
       // Descriptor Alg0
       mapDescriptor: false,
       descriptor: null,
       descriptorObstacle: [],
+      oldDescriptor: null,
 
       // Self input plot
       selfInput: false,
       obstacle1: {
-          row: null,
-          column: null,
-          direction: null
-        },
-        obstacle2: {
-          row: null,
-          column: null,
-          direction: null
-        },
-        obstacle3: {
-          row: null,
-          column: null,
-          direction: null
-        },
-        obstacle4: {
-          row: null,
-          column: null,
-          direction: null
-        },
-        obstacle5: {
-          row: null,
-          column: null,
-          direction: null
-        },
+        row: null,
+        column: null,
+        direction: null
+      },
+      obstacle2: {
+        row: null,
+        column: null,
+        direction: null
+      },
+      obstacle3: {
+        row: null,
+        column: null,
+        direction: null
+      },
+      obstacle4: {
+        row: null,
+        column: null,
+        direction: null
+      },
+      obstacle5: {
+        row: null,
+        column: null,
+        direction: null
+      },
     }
   },
 
   methods: {
-    sendData: async function(){
+    sendData: async function () {
       if (this.selfInput) {
         await axios.post('http://localhost:3000/set_arena', {arena: this.gridArray});
       }
 
-      if (this.mapDescriptor){
+      if (this.mapDescriptor) {
         await axios.post('http://localhost:3000/set_arena', {arena: JSON.parse(JSON.stringify(this.gridArray))});
       }
 
@@ -192,7 +193,7 @@ export default {
         );
         // JSON responses are automatically parsed.
         console.log(response.data);
-        var grid =  response.data.path;
+        var grid = response.data.path;
         console.log(grid);
         //return grid;
         this.pathGrid = grid;
@@ -203,7 +204,7 @@ export default {
       }
     },
 
-    setup: function (canvas){
+    setup: function (canvas) {
       canvas.createCanvas(this.canvasSize, this.canvasSize);
       //canvas.parent("vue-canvas");
       //p5.createGrid();
@@ -211,7 +212,7 @@ export default {
       console.log("hi");
     },
 
-    draw: function(canvas){
+    draw: function (canvas) {
       canvas.background('lightblue');
       canvas.frameRate(2.5);
       //Draw Grid
@@ -228,58 +229,58 @@ export default {
       //canvas.fill("lightgreen");
       //canvas.rect(0, 510, 90, 90);
 
-      if (this.pathGrid === null){
+      if (this.pathGrid === null) {
         canvas.fill("lightgreen");
         canvas.rect(0, 510, 90, 90);
         canvas.fill("darkgreen");
         canvas.ellipse(45, 525, 30, 30)
-      } else{
+      } else {
         let n = JSON.parse(JSON.stringify(this.pathGrid)).length;
 
 
-          if (this.count < n) {
+        if (this.count < n) {
 
-            let xvalue = (JSON.parse(JSON.stringify(this.pathGrid))[this.count].cell.x - 1) * 30;
-            let yvalue = (JSON.parse(JSON.stringify(this.pathGrid))[this.count].cell.y - 1) * 30;
+          let xvalue = (JSON.parse(JSON.stringify(this.pathGrid))[this.count].cell.x - 1) * 30;
+          let yvalue = (JSON.parse(JSON.stringify(this.pathGrid))[this.count].cell.y - 1) * 30;
 
-            let headX;
-            let headY;
+          let headX;
+          let headY;
 
-            //Account head direction
-            let headD = JSON.parse(JSON.stringify(this.pathGrid))[this.count].direction;
-            switch (headD) {
-              case 0: { //East
-                headX = (xvalue) + 75;
-                headY = (yvalue) + 45;
-                break;
-              }
-              case 1: {// North
-                headX = (xvalue) + 45;
-                headY = (yvalue) + 15;
-                break;
-              }
-              case 2: { // West
-                headX = (xvalue) + 15;
-                headY = (yvalue) + 45;
-                break;
-              }
-              case 3: { // South
-                headX = (xvalue) + 45;
-                headY = (yvalue) + 75;
-                break;
-              }
+          //Account head direction
+          let headD = JSON.parse(JSON.stringify(this.pathGrid))[this.count].direction;
+          switch (headD) {
+            case 0: { //East
+              headX = (xvalue) + 75;
+              headY = (yvalue) + 45;
+              break;
             }
-
-            // draw ellipsis to show head
-            canvas.fill("lightgreen");
-            canvas.rect(xvalue, yvalue, 90, 90);
-            canvas.fill("darkgreen");
-            canvas.ellipse(headX, headY, 30, 30);
-            this.count++;
-          } else {
-            this.count = 0;
+            case 1: {// North
+              headX = (xvalue) + 45;
+              headY = (yvalue) + 15;
+              break;
+            }
+            case 2: { // West
+              headX = (xvalue) + 15;
+              headY = (yvalue) + 45;
+              break;
+            }
+            case 3: { // South
+              headX = (xvalue) + 45;
+              headY = (yvalue) + 75;
+              break;
+            }
           }
+
+          // draw ellipsis to show head
+          canvas.fill("lightgreen");
+          canvas.rect(xvalue, yvalue, 90, 90);
+          canvas.fill("darkgreen");
+          canvas.ellipse(headX, headY, 30, 30);
+          this.count++;
+        } else {
+          this.count = 0;
         }
+      }
 
       //Draw Obstacles
       // Draw Direction
@@ -383,7 +384,7 @@ export default {
           }
           case 'South': { // South
             headX3 = (X3) + 15;
-            headY3= (Y3) + 25;
+            headY3 = (Y3) + 25;
             break;
           }
         }
@@ -419,7 +420,7 @@ export default {
           }
           case 'South': { // South
             headX4 = (X4) + 15;
-            headY4= (Y4) + 25;
+            headY4 = (Y4) + 25;
             break;
           }
         }
@@ -455,7 +456,7 @@ export default {
           }
           case 'South': { // South
             headX5 = (X5) + 15;
-            headY5= (Y5) + 25;
+            headY5 = (Y5) + 25;
             break;
           }
         }
@@ -466,9 +467,9 @@ export default {
         canvas.ellipse(headX5, headY5, 10, 10);
       }
 
-      if (this.mapDescriptor){
+      if (this.mapDescriptor) {
 
-        for (let i =0; i< JSON.parse(JSON.stringify(this.descriptorObstacle)).length; i++){
+        for (let i = 0; i < JSON.parse(JSON.stringify(this.descriptorObstacle)).length; i++) {
           let xvalue = (JSON.parse(JSON.stringify(this.descriptorObstacle))[i][0]) * 30;
           let yvalue = (JSON.parse(JSON.stringify(this.descriptorObstacle))[i][1]) * 30;
           let obstacleD = JSON.parse(JSON.stringify(this.descriptorObstacle))[i][2];
@@ -512,8 +513,6 @@ export default {
     updateGrid: function (gridArray) {
 
       if (this.selfInput) {
-
-
         // Change Obstacle 1
         let row1 = this.obstacle1.row - 1;
         let col1 = this.obstacle1.column - 1;
@@ -540,7 +539,8 @@ export default {
         gridArray[row5][col5] = this.obstacle5.direction.charAt(0);
       }
 
-      if (this.mapDescriptor){
+      if (this.mapDescriptor && this.newDescriptor()) {
+
         const splitString = this.descriptor.replace(/(\r\n|\n|\r| )/gm, "").split("");
         console.log(splitString);
 
@@ -548,19 +548,19 @@ export default {
         console.assert(splitString.length === size * size, "Map Descriptor Length is not correct");
 
         const arrayOfArrays = [];
-        for (var i=0; i<splitString.length; i+=size) {
-          arrayOfArrays.push(splitString.slice(i,i+size));
+        for (var i = 0; i < splitString.length; i += size) {
+          arrayOfArrays.push(splitString.slice(i, i + size));
         }
         console.log(arrayOfArrays);
 
         this.gridArray = arrayOfArrays;
         console.log(JSON.parse(JSON.stringify(this.gridArray)));
 
-        for (let i = 0; i<JSON.parse(JSON.stringify(this.gridArray)).length; i++){
-          for(let j = 0; j<JSON.parse(JSON.stringify(this.gridArray)).length; j++){
+        for (let i = 0; i < JSON.parse(JSON.stringify(this.gridArray)).length; i++) {
+          for (let j = 0; j < JSON.parse(JSON.stringify(this.gridArray)).length; j++) {
             let obstacle = [];
             let D = JSON.parse(JSON.stringify(this.gridArray))[i][j];
-            if (D === 'N'|| D==='S' || D === 'E' || D==='W') {
+            if (D === 'N' || D === 'S' || D === 'E' || D === 'W') {
               obstacle.push(j); // X
               obstacle.push(i); // Y
               obstacle.push(D); // Direction
@@ -571,31 +571,36 @@ export default {
         }
         console.log(this.descriptorObstacle);
       }
-
+      this.oldDescriptor = this.descriptor
       this.sendData();
       //this.getData();
       //this.pathGrid = JSON.parse(JSON.stringify(this.pathGrid));
 
     },
 
-    getPath: function(){
+    getPath: function () {
       this.getData();
     },
 
-    setInput: function(){
-      if (this.mapDescriptor){
+    newDescriptor: function(){
+      if (this.descriptor !== this.oldDescriptor){
+        this.descriptorObstacle = [];
+        return true;
+      } else{
+        return false;
+      }
+    },
+
+    setInput: function () {
+      if (this.mapDescriptor) {
         this.selfInput = false;
       }
-      if(this.selfInput){
+      if (this.selfInput) {
         this.mapDescriptor = false;
       }
-    }
-
+    },
   },
 
-  mounted() {
-
-  }
 };
 </script>
 
