@@ -5,6 +5,9 @@ import "mdp_algo/common"
 type Session interface {
 	HamiltonPath() HamiltonPlan
 	FastestPath() Plan
+	FastestPathInti(dist int) FastestPlan
+	CheckIR(IRdist int, front bool) FastestPlan
+	FastestPathEnd() FastestPlan
 
 	LoadArena(arena [][]string)
 	Reset()
@@ -13,9 +16,6 @@ type Session interface {
 type Plan struct {
 	Cost int
 	Path common.Path
-	//Distance []int
-	//Moves    []string
-	//Action   []string
 }
 
 type HamiltonPlan struct {
@@ -23,4 +23,10 @@ type HamiltonPlan struct {
 	Path               common.Path
 	Order              []common.Cell
 	DetectImageIndices []int
+}
+
+type FastestPlan struct {
+	Distance []int
+	Moves    []string
+	Action   []string
 }

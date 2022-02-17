@@ -1,6 +1,5 @@
 package session
 
-/*
 import (
 	"fmt"
 	"mdp_algo/common"
@@ -10,7 +9,7 @@ var distanceMoved int
 
 func (s *sessionImpl) FastestPathInti(
 	dist int,
-) Plan {
+) FastestPlan {
 	fmt.Println("Going towards obstacle")
 	var d []int
 	var movement []string
@@ -21,15 +20,14 @@ func (s *sessionImpl) FastestPathInti(
 	movement = append(movement, common.MoveName[common.Forward])
 	movement = append(movement, common.MoveName[common.ForwardRight])
 
-	return Plan{
-		Cost:     0,
+	return FastestPlan{
 		Distance: d,
 		Moves:    movement,
 		Action:   nil,
 	}
 }
 
-func (s *sessionImpl) CheckIR(IRdist int, front bool) Plan {
+func (s *sessionImpl) CheckIR(IRdist int, front bool) FastestPlan {
 	fmt.Println("Turning araound the obstacle")
 	fmt.Println(distanceMoved)
 
@@ -44,8 +42,7 @@ func (s *sessionImpl) CheckIR(IRdist int, front bool) Plan {
 			movement = append(movement, common.MoveName[common.Forward])
 		}
 		movement = append(movement, uTurn("Left")...)
-		return Plan{
-			Cost:     0,
+		return FastestPlan{
 			Distance: d,
 			Moves:    movement,
 			Action:   nil,
@@ -58,8 +55,7 @@ func (s *sessionImpl) CheckIR(IRdist int, front bool) Plan {
 			movement = append(movement, common.MoveName[common.Forward])
 		}
 		movement = append(movement, uTurn("Left")...)
-		return Plan{
-			Cost:     0,
+		return FastestPlan{
 			Distance: d,
 			Moves:    movement,
 			Action:   nil,
@@ -67,13 +63,12 @@ func (s *sessionImpl) CheckIR(IRdist int, front bool) Plan {
 	}
 }
 
-func (s *sessionImpl) FastestPathEnd() Plan {
+func (s *sessionImpl) FastestPathEnd() FastestPlan {
 	fmt.Println("Going back to carpark")
 	var d []int
 	var movement []string
 
-	return Plan{
-		Cost:     0,
+	return FastestPlan{
 		Distance: d,
 		Moves:    movement,
 		Action:   nil,
@@ -91,4 +86,3 @@ func uTurn(dir string) []string {
 	}
 	return movement
 }
-*/
