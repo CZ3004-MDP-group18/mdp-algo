@@ -52,6 +52,13 @@ func TestTransition(t *testing.T) {
 				Direction: East,
 			},
 		},
+		{
+			Transition{ForwardLeft},
+			Position{
+				Cell:      Cell{Xcoord: 6, Ycoord: 1},
+				Direction: North,
+			},
+		},
 	}
 
 	for _, testCase := range testCases {
