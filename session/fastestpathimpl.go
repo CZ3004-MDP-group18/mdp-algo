@@ -40,8 +40,15 @@ func (s *sessionImpl) CheckIR(IRdist int, front bool) FastestPlan {
 			distanceMoved += 30
 			d = append(d, step/10)
 			movement = append(movement, common.MoveName[common.Forward])
+		} else {
+			d = append(d, 0)
+			movement = append(movement, uTurn("Left")...)
+			if distanceMoved > 40 {
+				distanceMoved -= 40
+				d = append(d, distanceMoved/10)
+				movement = append(movement, common.MoveName[common.Forward])
+			}
 		}
-		movement = append(movement, uTurn("Left")...)
 		return FastestPlan{
 			Distance: d,
 			Moves:    movement,
@@ -53,8 +60,14 @@ func (s *sessionImpl) CheckIR(IRdist int, front bool) FastestPlan {
 			distanceMoved += 30
 			d = append(d, step/10)
 			movement = append(movement, common.MoveName[common.Forward])
+		} else {
+			d = append(d, 0)
+			movement = append(movement, uTurn("Left")...)
+			if distanceMoved > 40 {
+				d = append(d, distanceMoved/10)
+				movement = append(movement, common.MoveName[common.Forward])
+			}
 		}
-		movement = append(movement, uTurn("Left")...)
 		return FastestPlan{
 			Distance: d,
 			Moves:    movement,
@@ -67,6 +80,14 @@ func (s *sessionImpl) FastestPathEnd() FastestPlan {
 	fmt.Println("Going back to carpark")
 	var d []int
 	var movement []string
+
+	//Turn back to face carpark
+	d = append(d, 0)
+	movement = append(movement, common.MoveName[common.ForwardRight])
+
+	// move forward
+	d = append(d, 0)
+	movement = append(movement, common.MoveName[common.Forward])
 
 	return FastestPlan{
 		Distance: d,

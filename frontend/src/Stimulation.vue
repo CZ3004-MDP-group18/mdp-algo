@@ -135,12 +135,14 @@ export default {
       // Recieve Actual algo from backend
       pathGrid: null,
       count: 0,
+      reachableObstacle: null,
 
       // Descriptor Alg0
       mapDescriptor: false,
       descriptor: null,
       descriptorObstacle: [],
       oldDescriptor: null,
+      reachCount: 0,
 
       // Self input plot
       selfInput: false,
@@ -194,11 +196,14 @@ export default {
         // JSON responses are automatically parsed.
         console.log(response.data);
         var grid = response.data.path;
+        var obstacle = response.data.order;
         console.log(grid);
+        console.log(obstacle);
         //return grid;
         this.pathGrid = grid;
-        JSON.parse(JSON.stringify(this.pathGrid));
+        this.reachableObstacle = obstacle;
         console.log(this.pathGrid);
+        console.log(JSON.parse(JSON.stringify(this.reachableObstacle)));
       } catch (error) {
         console.log(error);
       }
@@ -317,7 +322,19 @@ export default {
           }
         }
 
-        canvas.fill(155);
+        if (this.reachableObstacle !== null){
+          for (let j =0; j< JSON.parse(JSON.stringify(this.reachableObstacle)).length; j++) {
+            if (JSON.parse(JSON.stringify(this.reachableObstacle))[j]["x"] === (parseInt(this.obstacle1.column) - 1)
+                && JSON.parse(JSON.stringify(this.reachableObstacle))[j]["y"] === (parseInt(this.obstacle1.row) - 1)) {
+              canvas.fill("lightgreen");
+              break;
+            } else {
+              canvas.fill(155);
+            }
+          }
+        }else{
+          canvas.fill(155);
+        }
         canvas.rect(X1, Y1, 30, 30);
         canvas.fill(55);
         canvas.ellipse(headX1, headY1, 10, 10);
@@ -353,7 +370,19 @@ export default {
           }
         }
 
-        canvas.fill(155);
+        if (this.reachableObstacle !== null){
+          for (let j =0; j< JSON.parse(JSON.stringify(this.reachableObstacle)).length; j++) {
+            if (JSON.parse(JSON.stringify(this.reachableObstacle))[j]["x"] === (parseInt(this.obstacle2.column) - 1)
+                && JSON.parse(JSON.stringify(this.reachableObstacle))[j]["y"] === (parseInt(this.obstacle2.row) - 1)) {
+              canvas.fill("lightgreen");
+              break;
+            } else {
+              canvas.fill(155);
+            }
+          }
+        }else{
+          canvas.fill(155);
+        }
         canvas.rect(X2, Y2, 30, 30);
         canvas.fill(55);
         canvas.ellipse(headX2, headY2, 10, 10);
@@ -389,7 +418,19 @@ export default {
           }
         }
 
-        canvas.fill(155);
+        if (this.reachableObstacle !== null){
+          for (let j =0; j< JSON.parse(JSON.stringify(this.reachableObstacle)).length; j++) {
+            if (JSON.parse(JSON.stringify(this.reachableObstacle))[j]["x"] === (parseInt(this.obstacle3.column) - 1)
+                && JSON.parse(JSON.stringify(this.reachableObstacle))[j]["y"] === (parseInt(this.obstacle3.row) - 1)) {
+              canvas.fill("lightgreen");
+              break;
+            } else {
+              canvas.fill(155);
+            }
+          }
+        }else{
+          canvas.fill(155);
+        }
         canvas.rect(X3, Y3, 30, 30);
         canvas.fill(55);
         canvas.ellipse(headX3, headY3, 10, 10);
@@ -425,7 +466,19 @@ export default {
           }
         }
 
-        canvas.fill(155);
+        if (this.reachableObstacle !== null){
+          for (let j =0; j< JSON.parse(JSON.stringify(this.reachableObstacle)).length; j++) {
+            if (JSON.parse(JSON.stringify(this.reachableObstacle))[j]["x"] === (parseInt(this.obstacle4.column) - 1)
+                && JSON.parse(JSON.stringify(this.reachableObstacle))[j]["y"] === (parseInt(this.obstacle4.row) - 1)) {
+              canvas.fill("lightgreen");
+              break;
+            } else {
+              canvas.fill(155);
+            }
+          }
+        }else{
+          canvas.fill(155);
+        }
         canvas.rect(X4, Y4, 30, 30);
         canvas.fill(55);
         canvas.ellipse(headX4, headY4, 10, 10);
@@ -461,10 +514,23 @@ export default {
           }
         }
 
-        canvas.fill(155);
+        if (this.reachableObstacle !== null){
+          for (let j =0; j< JSON.parse(JSON.stringify(this.reachableObstacle)).length; j++) {
+            if (JSON.parse(JSON.stringify(this.reachableObstacle))[j]["x"] === (parseInt(this.obstacle5.column) - 1)
+                && JSON.parse(JSON.stringify(this.reachableObstacle))[j]["y"] === (parseInt(this.obstacle5.row) - 1)) {
+              canvas.fill("lightgreen");
+              break;
+            } else {
+              canvas.fill(155);
+            }
+          }
+        }else{
+          canvas.fill(155);
+        }
         canvas.rect(X5, Y5, 30, 30);
         canvas.fill(55);
         canvas.ellipse(headX5, headY5, 10, 10);
+
       }
 
       if (this.mapDescriptor) {
@@ -499,8 +565,19 @@ export default {
               break;
             }
           }
-
-          canvas.fill(155);
+          if (this.reachableObstacle !== null){
+            for (let j =0; j< JSON.parse(JSON.stringify(this.reachableObstacle)).length; j++) {
+              if (JSON.parse(JSON.stringify(this.reachableObstacle))[j]["x"] === JSON.parse(JSON.stringify(this.descriptorObstacle))[i][0]
+                  && JSON.parse(JSON.stringify(this.reachableObstacle))[j]["y"] === JSON.parse(JSON.stringify(this.descriptorObstacle))[i][1]) {
+                canvas.fill("lightgreen");
+                break;
+              } else {
+                canvas.fill(155);
+              }
+            }
+          }else{
+            canvas.fill(155);
+          }
           canvas.rect(xvalue, yvalue, 30, 30);
           canvas.fill(55);
           canvas.ellipse(headX, headY, 10, 10);
@@ -585,6 +662,8 @@ export default {
     newDescriptor: function(){
       if (this.descriptor !== this.oldDescriptor){
         this.descriptorObstacle = [];
+        this.reachableObstacle = null;
+        this.pathGrid = null;
         return true;
       } else{
         return false;
