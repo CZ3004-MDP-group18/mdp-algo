@@ -29,9 +29,9 @@ type sessionImpl struct {
 	current      common.Position
 
 	// Hamilton path algo
-	imageCells    []common.Cell
-	takePositions map[common.Cell][]common.Position
-	planCache     map[common.Position]map[common.Cell]Plan
+	imageCells      []common.Cell
+	detectPositions map[common.Cell][]common.Position
+	planCache       map[common.Position]map[common.Cell]Plan
 }
 
 func NewSession(height int, width int, current common.Position) Session {
