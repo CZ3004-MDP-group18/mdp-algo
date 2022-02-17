@@ -29,13 +29,9 @@ type sessionImpl struct {
 	current      common.Position
 
 	// Hamilton path algo
-	imageCells      []common.Cell
-	detectPositions map[common.Cell][]common.Position
-	planCache       map[common.Position]map[common.Cell]Plan
-
-	//Fastest Path
-	distance  int
-	pathCache map[common.Position]map[common.Cell]Plan
+	imageCells    []common.Cell
+	takePositions map[common.Cell][]common.Position
+	planCache     map[common.Position]map[common.Cell]Plan
 }
 
 func NewSession(height int, width int, current common.Position) Session {
@@ -150,7 +146,6 @@ func (s *sessionImpl) getVirtualCellState(cell common.Cell) cellState {
 	}
 	return cellState{state: obstacle}
 }
-
 func (s *sessionImpl) FastestPath() Plan {
 	return Plan{}
 }

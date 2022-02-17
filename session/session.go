@@ -13,6 +13,9 @@ type Session interface {
 type Plan struct {
 	Cost int
 	Path common.Path
+	//Distance []int
+	//Moves    []string
+	//Action   []string
 }
 
 type HamiltonPlan struct {
