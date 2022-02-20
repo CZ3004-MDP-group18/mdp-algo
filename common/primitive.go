@@ -18,12 +18,17 @@ var AllDirections = [4]Direction{East, North, West, South}
 type Move int
 
 const (
+	// Real move
 	Forward Move = iota
 	Backward
 	ForwardRight
 	ForwardLeft
 	BackwardRight
 	BackwardLeft
+
+	// Basic move
+	LeftRotation
+	RightRotation
 )
 
 var AllMoves = []Move{Forward, Backward, ForwardRight, ForwardLeft, BackwardRight, BackwardLeft}
@@ -66,9 +71,9 @@ func (current Direction) IsVertical() bool {
 func (current Direction) Rotate(move Move) Direction {
 	next := int(current)
 	switch move {
-	case ForwardRight, BackwardLeft:
+	case ForwardRight, BackwardLeft, RightRotation:
 		next = (int(current) + 3) % 4
-	case ForwardLeft, BackwardRight:
+	case ForwardLeft, BackwardRight, LeftRotation:
 		next = (int(current) + 1) % 4
 	}
 	return Direction(next)
@@ -88,6 +93,8 @@ func (current Position) Transition(transition ...Move) (next Position) {
 				dist = -1
 			}
 			next = next.translate(dist)
+		} else if move == LeftRotation || move == RightRotation {
+			next.Direction = next.Direction.Rotate(move)
 		} else {
 			frontDist := FrontRadius
 			sideDist := SideRadius
@@ -197,7 +204,11 @@ func (current Position) Difference(next Position) (move Move) {
 	panic("No possible move")
 }
 
-func (t Transition) ToStringArray() (arr []string) {
+// ToStringArray return list of Move strings.
+// Consecutive same move strings will be shortened into one string
+// E.g. W,W,W -> 3W
+func (t Transition) ToStringArray(shorten bool) (arr []string) {
+	// TODO(nhanpotter): Add shorten logic
 	for _, move := range t {
 		arr = append(arr, MoveName[move])
 	}

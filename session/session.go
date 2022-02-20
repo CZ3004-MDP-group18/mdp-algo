@@ -9,6 +9,10 @@ type Session interface {
 	CheckIR(IRdist int, front bool) FastestPlan
 	FastestPathEnd() FastestPlan
 
+	// MakeMove make the decision to move
+	MakeMove(sensor common.Sensor) (transition common.Transition)
+	Move(move common.Move)
+
 	LoadArena(arena [][]string)
 	Reset()
 }
