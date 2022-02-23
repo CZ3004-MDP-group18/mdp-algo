@@ -7,3 +7,8 @@ var SideRadius = 4
 // FrontSensorRange & LeftSensorRange defines the max range of a sensor
 var FrontSensorRange = 5
 var LeftSensorRange = 5
+
+// Obstacle length & buffer
+var ObstacleDistance = 60
+var ObstacleBuffer = 50
+var RemoveBuffer = 20

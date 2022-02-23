@@ -1,13 +1,8 @@
 package session
 
-import (
-	"fmt"
-	"mdp_algo/common"
-)
+//var distanceMoved int
 
-var distanceMoved int
-
-func (s *sessionImpl) FastestPathInti(
+/*func (s *sessionImpl) FastestPathInti(
 	dist int,
 ) FastestPlan {
 	fmt.Println("Going towards obstacle")
@@ -106,4 +101,4 @@ func uTurn(dir string) []string {
 		movement = append(movement, common.MoveName[common.ForwardRight])
 	}
 	return movement
-}
+}*/
