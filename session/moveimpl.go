@@ -48,7 +48,11 @@ func getFinalSprint(obDist int, returnDist int) (transition common.Transition) {
 
 	// At Front of obstacle
 	for i := 0; i < returnDist/10; i++ {
-		transition = append(transition, common.Forward)
+		if stepbystep == 0 {
+			transition = append(transition, common.Forward)
+		} else {
+			transition = append(transition, common.Backward)
+		}
 	}
 
 	//Turn to face parking lot
