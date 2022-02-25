@@ -37,6 +37,7 @@ var fastestmoveCost = map[common.Move]int{
 var fastestCostModel = costModel{
 	moveCost: fastestmoveCost,
 }
+var completePath = false
 
 func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.Transition) {
 	// TODO(Zhi Ying): Implement this
@@ -69,6 +70,7 @@ func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.T
 			s.augment()
 
 			transition = s.shortestPath(currentPosition, goalTest, 1, moveableTest, fastestCostModel).Path.ToTransition()
+			completePath = true
 
 		} else {
 			for x := currentPosition.Cell.Xcoord; x > (common.ObstacleDistance - common.ObstacleBuffer); x-- {
@@ -77,7 +79,15 @@ func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.T
 			s.augment()
 
 			transition = s.shortestPath(currentPosition, goalTest, 1, moveableTest, fastestCostModel).Path.ToTransition()
+			completePath = true
 
+		}
+	}
+
+	if completePath == true {
+		transition = append(transition, common.ForwardRight)
+		for i := 0; i < forwardDist-4; i++ {
+			transition = append(transition, common.Forward)
 		}
 	}
 	return
