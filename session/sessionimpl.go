@@ -41,6 +41,7 @@ func NewSession(height int, width int, current common.Position) Session {
 		current: current,
 	}
 	s.Reset()
+	s.LoadArena(defaultArena())
 	return s
 }
 
