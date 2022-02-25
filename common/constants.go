@@ -9,6 +9,6 @@ var FrontSensorRange = 5
 var LeftSensorRange = 5
 
 // Obstacle length & buffer
-var ObstacleDistance = 60
-var ObstacleBuffer = 50
-var RemoveBuffer = 20
+var ObstacleDistance = 6
+var ObstacleBuffer = 5
+var RemoveBuffer = 2

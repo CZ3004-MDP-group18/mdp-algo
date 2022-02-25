@@ -11,11 +11,11 @@ func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.T
 	// TODO(Zhi Ying): Implement this
 	if sensor.FrontDist != 0 {
 		forwardDist = sensor.FrontDist
-		for i := 0; i < ((forwardDist - 20) / 10); i++ {
+		for i := 0; i < (forwardDist - 2); i++ {
 			transition = append(transition, common.Forward)
 		}
 		transition = append(transition, common.ForwardRight)
-	} else if sensor.LeftDist < 20 {
+	} else if sensor.LeftDist < 2 {
 		transition = append(transition, common.Forward)
 		stepbystep += 1
 	} else {
@@ -25,7 +25,7 @@ func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.T
 			return getFinalSprint(finalObstacleDist, returnDist)
 		} else {
 			finalObstacleDist = common.ObstacleDistance - common.RemoveBuffer
-			returnDist = (stepbystep + 2) * 10
+			returnDist = stepbystep + 2
 			return getFinalSprint(finalObstacleDist, returnDist)
 		}
 
@@ -39,7 +39,7 @@ func getFinalSprint(obDist int, returnDist int) (transition common.Transition) {
 	transition = append(transition, uTurn("Left")...)
 
 	// At back of the obstacle
-	for i := 0; i < (obDist-30)/10; i++ {
+	for i := 0; i < (obDist - 3); i++ {
 		transition = append(transition, common.Forward)
 	}
 
@@ -47,7 +47,7 @@ func getFinalSprint(obDist int, returnDist int) (transition common.Transition) {
 	transition = append(transition, uTurn("Left")...)
 
 	// At Front of obstacle
-	for i := 0; i < returnDist/10; i++ {
+	for i := 0; i < returnDist; i++ {
 		if stepbystep == 0 {
 			transition = append(transition, common.Forward)
 		} else {
@@ -59,7 +59,7 @@ func getFinalSprint(obDist int, returnDist int) (transition common.Transition) {
 	transition = append(transition, common.ForwardRight)
 
 	//Going back to carpark
-	for i := 0; i < (forwardDist-40)/10; i++ {
+	for i := 0; i < (forwardDist - 4); i++ {
 		transition = append(transition, common.Forward)
 	}
 
