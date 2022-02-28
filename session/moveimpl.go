@@ -8,13 +8,7 @@ var stepbystep = 0
 var forwardDist = 0
 
 //var returnDist = 0
-var startPosition = common.Position{
-	Cell: common.Cell{
-		Xcoord: 10,
-		Ycoord: 10,
-	},
-	Direction: common.North,
-}
+var startPosition common.Position
 var currentPosition common.Position
 var positionToReturn = common.Position{
 	Cell: common.Cell{
@@ -42,6 +36,7 @@ var completePath = false
 func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.Transition) {
 	// TODO(Zhi Ying): Implement this
 	currentPosition = s.current
+	startPosition = s.start
 
 	moveableTest := func(cell common.Cell) bool {
 		cs := s.getAugmentCellState(cell)
