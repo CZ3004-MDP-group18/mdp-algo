@@ -10,7 +10,7 @@ type Session interface {
 	//FastestPathEnd() FastestPlan
 
 	// MakeMove make the decision to move
-	MakeMove(sensor common.Sensor) (transition common.Transition)
+	MakeMove(sensor common.SensorPayload) (transition common.Transition)
 	Move(move common.Move)
 
 	LoadArena(arena [][]string)

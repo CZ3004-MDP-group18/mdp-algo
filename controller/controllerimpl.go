@@ -51,12 +51,12 @@ func (c *controllerImpl) Move(move string) {
 	})
 }
 
-func (c *controllerImpl) Sensor() common.Sensor {
+func (c *controllerImpl) Sensor() common.SensorPayload {
 	payload := common.SensorPayload{}
 	err := recv(c.conn, &payload)
 	if err != nil {
 		panic(err)
 	}
 
-	return payload.Parse()
+	return payload
 }

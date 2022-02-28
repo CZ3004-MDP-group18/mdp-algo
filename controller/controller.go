@@ -4,5 +4,5 @@ import "mdp_algo/common"
 
 type Controller interface {
 	Move(move string)
-	Sensor() common.Sensor
+	Sensor() common.SensorPayload
 }
