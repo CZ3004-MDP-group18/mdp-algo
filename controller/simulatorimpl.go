@@ -28,7 +28,6 @@ func (s *simulatorImpl) Sensor() common.SensorPayload {
 			obstacledist = i
 		}
 	}
-
 	payload.FrontDist = s.current.Cell.Ycoord - obstacledist
 	payload.LeftDist = s.current.Cell.Ycoord - obstacledist
 
