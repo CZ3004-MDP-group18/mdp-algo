@@ -59,7 +59,7 @@ func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.T
 		stepbystep += 1
 	} else {
 		if stepbystep == 0 {
-			for x := currentPosition.Cell.Xcoord; x > (common.ObstacleDistance - common.ObstacleBuffer); x-- {
+			for x := currentPosition.Cell.Xcoord; x > (common.ObstacleDistance + common.ObstacleBuffer); x-- {
 				s.virtualArena[currentPosition.Cell.Ycoord-1][x].state = obstacle
 			}
 			s.augment()
@@ -68,7 +68,7 @@ func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.T
 			completePath = true
 
 		} else {
-			for x := currentPosition.Cell.Xcoord; x > (common.ObstacleDistance - common.ObstacleBuffer); x-- {
+			for x := currentPosition.Cell.Xcoord; x > (common.ObstacleDistance); x-- {
 				s.virtualArena[currentPosition.Cell.Ycoord-1][x].state = obstacle
 			}
 			s.augment()
