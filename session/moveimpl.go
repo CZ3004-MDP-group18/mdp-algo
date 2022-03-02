@@ -94,7 +94,7 @@ func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.T
 
 	if sensor.FrontDist != 0 {
 		forwardDist = sensor.FrontDist
-		for i := 0; i < (forwardDist - 2); i++ {
+		for i := 0; i < (forwardDist - 3); i++ {
 			transition = append(transition, common.Forward)
 		}
 		transition = append(transition, common.ForwardRight)
@@ -122,7 +122,7 @@ func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.T
 
 /*func getFinalSprint(obDist int, returnDist int) (transition common.Transition) {
 	// Uturn
-	transition = append(transition, uTurn("Left")...)
+	transition = append(transition, uTurn("Left")...) // add a uTurn move
 
 	// At back of the obstacle
 	for i := 0; i < (obDist - 3); i++ {
@@ -130,7 +130,7 @@ func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.T
 	}
 
 	// Uturn
-	transition = append(transition, uTurn("Left")...)
+	transition = append(transition, uTurn("Left")...) // add a uTurn move
 
 	// At Front of obstacle
 	for i := 0; i < returnDist; i++ {
