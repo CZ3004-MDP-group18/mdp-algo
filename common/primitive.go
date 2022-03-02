@@ -24,18 +24,25 @@ const (
 	ForwardLeft
 	BackwardRight
 	BackwardLeft
+
+	// Move that turn on the spot
+	ForwardRightRotation
+	ForwardLeftRotation
 )
 
-var AllMoves = []Move{Forward, Backward, ForwardRight, ForwardLeft, BackwardRight, BackwardLeft}
-var AllTurnMoves = []Move{ForwardRight, ForwardLeft, BackwardRight, BackwardLeft}
+// AllMoves is all the moves to be considered in HamiltonPath
+var AllMoves = []Move{Forward, Backward, ForwardRightRotation, ForwardLeftRotation}
+var allTurnMoves = []Move{ForwardRight, ForwardLeft, BackwardRight, BackwardLeft}
 
 var MoveName = map[Move]string{
-	Forward:       "W",
-	Backward:      "S",
-	ForwardRight:  "E",
-	ForwardLeft:   "Q",
-	BackwardRight: "D",
-	BackwardLeft:  "A",
+	Forward:              "W",
+	Backward:             "S",
+	ForwardRight:         "E",
+	ForwardRightRotation: "E",
+	ForwardLeft:          "Q",
+	ForwardLeftRotation:  "Q",
+	BackwardRight:        "D",
+	BackwardLeft:         "A",
 }
 
 // Cell : 2d vector
@@ -66,9 +73,9 @@ func (current Direction) IsVertical() bool {
 func (current Direction) Rotate(move Move) Direction {
 	next := int(current)
 	switch move {
-	case ForwardRight, BackwardLeft:
+	case ForwardRight, BackwardLeft, ForwardRightRotation:
 		next = (int(current) + 3) % 4
-	case ForwardLeft, BackwardRight:
+	case ForwardLeft, BackwardRight, ForwardLeftRotation:
 		next = (int(current) + 1) % 4
 	}
 	return Direction(next)
@@ -88,6 +95,9 @@ func (current Position) Transition(transition ...Move) (next Position) {
 				dist = -1
 			}
 			next = next.translate(dist)
+		} else if move == ForwardLeftRotation || move == ForwardRightRotation {
+			// On the spot turning
+			next.Direction = next.Direction.Rotate(move)
 		} else {
 			frontDist := FrontRadius
 			sideDist := SideRadius
@@ -126,6 +136,26 @@ func (current Position) Footprint(move Move) (footprint []Cell) {
 	next := current.Transition(move)
 	if move == Forward || move == Backward {
 		return []Cell{current.Cell, next.Cell}
+	}
+
+	// Hardcoded forward right and left rotation (on the spot)
+	if move == ForwardRightRotation || move == ForwardLeftRotation {
+		// Add the cells surrounding
+		for i := -1; i <= 1; i++ {
+			for j := -1; j <= 1; j++ {
+				footprint = append(footprint, Cell{
+					Xcoord: current.Cell.Xcoord + i,
+					Ycoord: current.Cell.Ycoord + j,
+				})
+			}
+		}
+
+		tmpNext := current.Transition(Forward, Forward)
+		footprint = append(footprint, tmpNext.Cell)
+		tmpNext.Direction = next.Direction
+		tmpNext = tmpNext.Transition(Forward)
+		footprint = append(footprint, tmpNext.Cell)
+		return
 	}
 
 	// Turn move
@@ -189,7 +219,7 @@ func (current Position) Difference(next Position) (move Move) {
 	}
 
 	// Rotation Move
-	for _, turnMove := range AllTurnMoves {
+	for _, turnMove := range allTurnMoves {
 		if current.Transition(turnMove) == next {
 			return turnMove
 		}

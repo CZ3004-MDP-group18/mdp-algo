@@ -59,6 +59,20 @@ func TestTransition(t *testing.T) {
 				Direction: North,
 			},
 		},
+		{
+			Transition{ForwardLeftRotation},
+			Position{
+				Cell:      Cell{Xcoord: 5, Ycoord: 5},
+				Direction: North,
+			},
+		},
+		{
+			Transition{ForwardRightRotation},
+			Position{
+				Cell:      Cell{Xcoord: 5, Ycoord: 5},
+				Direction: South,
+			},
+		},
 	}
 
 	for _, testCase := range testCases {
@@ -157,6 +171,34 @@ func TestPosition_Footprint(t *testing.T) {
 	expected = []Cell{
 		{Xcoord: 10, Ycoord: 10},
 		{Xcoord: 9, Ycoord: 10}, {Xcoord: 9, Ycoord: 11}, {Xcoord: 9, Ycoord: 12}, {Xcoord: 9, Ycoord: 13}, {Xcoord: 9, Ycoord: 14},
+	}
+	assert.ElementsMatch(t, expected, footprint)
+}
+
+func TestTurnOnTheSpotFootprint(t *testing.T) {
+	start := Position{
+		Cell: Cell{
+			Xcoord: 13,
+			Ycoord: 16,
+		},
+		Direction: North,
+	}
+
+	footprint := start.Footprint(ForwardLeftRotation)
+	expected := []Cell{
+		{Xcoord: 12, Ycoord: 14}, {Xcoord: 13, Ycoord: 14},
+		{Xcoord: 12, Ycoord: 15}, {Xcoord: 13, Ycoord: 15}, {Xcoord: 14, Ycoord: 15},
+		{Xcoord: 12, Ycoord: 16}, {Xcoord: 13, Ycoord: 16}, {Xcoord: 14, Ycoord: 16},
+		{Xcoord: 12, Ycoord: 17}, {Xcoord: 13, Ycoord: 17}, {Xcoord: 14, Ycoord: 17},
+	}
+	assert.ElementsMatch(t, expected, footprint)
+
+	footprint = start.Footprint(ForwardRightRotation)
+	expected = []Cell{
+		{Xcoord: 13, Ycoord: 14}, {Xcoord: 14, Ycoord: 14},
+		{Xcoord: 12, Ycoord: 15}, {Xcoord: 13, Ycoord: 15}, {Xcoord: 14, Ycoord: 15},
+		{Xcoord: 12, Ycoord: 16}, {Xcoord: 13, Ycoord: 16}, {Xcoord: 14, Ycoord: 16},
+		{Xcoord: 12, Ycoord: 17}, {Xcoord: 13, Ycoord: 17}, {Xcoord: 14, Ycoord: 17},
 	}
 	assert.ElementsMatch(t, expected, footprint)
 }
