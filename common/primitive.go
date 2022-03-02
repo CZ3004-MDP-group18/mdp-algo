@@ -32,7 +32,7 @@ const (
 
 // AllMoves is all the moves to be considered in HamiltonPath
 var AllMoves = []Move{Forward, Backward, ForwardRightRotation, ForwardLeftRotation}
-var allTurnMoves = []Move{ForwardRight, ForwardLeft, BackwardRight, BackwardLeft}
+var allTurnMoves = []Move{ForwardRightRotation, ForwardLeftRotation}
 
 var MoveName = map[Move]string{
 	Forward:              "W",

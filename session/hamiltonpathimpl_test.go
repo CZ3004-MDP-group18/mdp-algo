@@ -22,8 +22,8 @@ type HamiltonPathTestSuite struct {
 func (s *HamiltonPathTestSuite) SetupTest() {
 	s.startPos = common.Position{
 		Cell: common.Cell{
-			Xcoord: 1,
-			Ycoord: 18,
+			Xcoord: 2,
+			Ycoord: 17,
 		},
 		Direction: common.East,
 	}

@@ -13,12 +13,14 @@ type costModel struct {
 }
 
 var moveCost = map[common.Move]int{
-	common.Forward:       1,
-	common.Backward:      2,
-	common.ForwardLeft:   10,
-	common.ForwardRight:  10,
-	common.BackwardLeft:  11,
-	common.BackwardRight: 11,
+	common.Forward:              1,
+	common.Backward:             2,
+	common.ForwardLeft:          10,
+	common.ForwardRight:         10,
+	common.BackwardLeft:         11,
+	common.BackwardRight:        11,
+	common.ForwardRightRotation: 20,
+	common.ForwardLeftRotation:  20,
 }
 
 var hamiltonCostModel = costModel{
@@ -235,7 +237,10 @@ func (s *sessionImpl) expand(
 		}
 
 		nextPosition := current.Transition(move)
-		cost := model.moveCost[move]
+		cost, ok := model.moveCost[move]
+		if !ok {
+			panic(fmt.Sprintf("Move %d has no cost model", move))
+		}
 		next = append(next, expansion{
 			position: nextPosition,
 			distance: cost,

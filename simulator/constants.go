@@ -7,8 +7,8 @@ const width = 20
 
 var startPosition = common.Position{
 	Cell: common.Cell{
-		Xcoord: 1,
-		Ycoord: 18,
+		Xcoord: 2,
+		Ycoord: 17,
 	},
 	Direction: common.North,
 }
