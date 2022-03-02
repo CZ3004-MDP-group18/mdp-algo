@@ -27,6 +27,7 @@ type sessionImpl struct {
 	virtualArena [][]cellState
 	augmentArena [][]cellState
 	current      common.Position
+	start        common.Position
 
 	// Hamilton path algo
 	imageCells      []common.Cell
@@ -34,11 +35,12 @@ type sessionImpl struct {
 	planCache       map[common.Position]map[common.Cell]Plan
 }
 
-func NewSession(height int, width int, current common.Position) Session {
+func NewSession(height int, width int, start common.Position) Session {
 	s := &sessionImpl{
 		height:  height,
 		width:   width,
-		current: current,
+		current: start,
+		start:   start,
 	}
 	s.Reset()
 	s.LoadArena(defaultArena())

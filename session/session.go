@@ -4,10 +4,14 @@ import "mdp_algo/common"
 
 type Session interface {
 	HamiltonPath() HamiltonPlan
-	FastestPath() Plan
-	FastestPathInti(dist int) FastestPlan
-	CheckIR(IRdist int, front bool) FastestPlan
-	FastestPathEnd() FastestPlan
+	//FastestPath() Plan
+	//FastestPathInti(dist int) FastestPlan
+	//CheckIR(IRdist int, front bool) FastestPlan
+	//FastestPathEnd() FastestPlan
+
+	// MakeMove make the decision to move
+	MakeMove(sensor common.SensorPayload) (transition common.Transition)
+	Move(move common.Move)
 
 	LoadArena(arena [][]string)
 	Reset()
