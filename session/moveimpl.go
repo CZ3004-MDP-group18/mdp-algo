@@ -4,10 +4,10 @@ import "mdp_algo/common"
 
 var stepbystep = 0
 
-//var finalObstacleDist = 0
+var finalObstacleDist = 0
 var forwardDist = 0
 
-//var returnDist = 0
+var returnDist = 0
 var startPosition common.Position
 var currentPosition common.Position
 var positionToReturn = common.Position{
@@ -33,7 +33,7 @@ var fastestCostModel = costModel{
 }
 var completePath = false
 
-func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.Transition) {
+/*func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.Transition) {
 	// TODO(Zhi Ying): Implement this
 	currentPosition = s.current
 	startPosition = s.start
@@ -86,51 +86,43 @@ func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.T
 		}
 	}
 	return
-}
+}*/
 
-/*func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.Transition) {
+func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.Transition) {
 	//
 	currentPosition = s.current
 
 	if sensor.FrontDist != 0 {
-		forwardDist = sensor.FrontDist
-		for i := 0; i < (forwardDist - 3); i++ {
+		forwardDist = sensor.FrontDist - 3
+		for i := 0; i < forwardDist; i++ {
 			transition = append(transition, common.Forward)
 		}
-		transition = append(transition, common.ForwardRight)
+		transition = append(transition, common.RightRotation)
 		turnNumber += 1
-	} else if sensor.LeftDist < 2 && turnNumber == 1 {
+	} else if sensor.LeftDist < 3 && turnNumber == 1 {
 		transition = append(transition, common.Forward)
 		stepbystep += 1
 	} else {
-		if stepbystep == 0 {
-
-			finalObstacleDist = common.ObstacleDistance + common.ObstacleBuffer
-			returnDist = finalObstacleDist - common.RemoveBuffer
-			return getFinalSprint(finalObstacleDist, returnDist)
-		} else {
-
-			finalObstacleDist = common.ObstacleDistance - common.RemoveBuffer
-			returnDist = stepbystep + 2
-			return getFinalSprint(finalObstacleDist, returnDist)
-		}
+		finalObstacleDist = common.ObstacleDistance
+		returnDist = common.ObstacleDistance - stepbystep
+		return getFinalSprint(finalObstacleDist, returnDist)
 
 	}
 
 	return
-}*/
+}
 
-/*func getFinalSprint(obDist int, returnDist int) (transition common.Transition) {
+func getFinalSprint(obDist int, returnDist int) (transition common.Transition) {
 	// Uturn
-	transition = append(transition, uTurn("Left")...) // add a uTurn move
+	transition = append(transition, common.UTurnLeft) // add a uTurn move
 
 	// At back of the obstacle
-	for i := 0; i < (obDist - 3); i++ {
+	for i := 0; i < obDist; i++ {
 		transition = append(transition, common.Forward)
 	}
 
 	// Uturn
-	transition = append(transition, uTurn("Left")...) // add a uTurn move
+	transition = append(transition, common.UTurnLeft) // add a uTurn move
 
 	// At Front of obstacle
 	for i := 0; i < returnDist; i++ {
@@ -142,15 +134,15 @@ func (s *sessionImpl) MakeMove(sensor common.SensorPayload) (transition common.T
 	}
 
 	//Turn to face parking lot
-	transition = append(transition, common.ForwardRight)
+	transition = append(transition, common.RightRotation)
 
 	//Going back to carpark
-	for i := 0; i < (forwardDist - 4); i++ {
+	for i := 0; i < forwardDist; i++ {
 		transition = append(transition, common.Forward)
 	}
 
 	return
-}*/
+}
 
 /*func uTurn(dir string) (moves []common.Move) {
 	if dir == "Left" {

@@ -29,6 +29,9 @@ const (
 	// Basic move
 	LeftRotation
 	RightRotation
+
+	//UTurn move for Task 2 only
+	UTurnLeft
 )
 
 var AllMoves = []Move{Forward, Backward, ForwardRight, ForwardLeft, BackwardRight, BackwardLeft}
@@ -41,6 +44,8 @@ var MoveName = map[Move]string{
 	ForwardLeft:   "Q",
 	BackwardRight: "D",
 	BackwardLeft:  "A",
+
+	UTurnLeft: "U",
 }
 
 // Cell : 2d vector
