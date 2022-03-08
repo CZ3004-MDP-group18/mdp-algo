@@ -189,7 +189,6 @@ func TestTurnOnTheSpotFootprint(t *testing.T) {
 		{Xcoord: 12, Ycoord: 14}, {Xcoord: 13, Ycoord: 14},
 		{Xcoord: 12, Ycoord: 15}, {Xcoord: 13, Ycoord: 15}, {Xcoord: 14, Ycoord: 15},
 		{Xcoord: 12, Ycoord: 16}, {Xcoord: 13, Ycoord: 16}, {Xcoord: 14, Ycoord: 16},
-		{Xcoord: 12, Ycoord: 17}, {Xcoord: 13, Ycoord: 17}, {Xcoord: 14, Ycoord: 17},
 	}
 	assert.ElementsMatch(t, expected, footprint)
 
@@ -198,7 +197,6 @@ func TestTurnOnTheSpotFootprint(t *testing.T) {
 		{Xcoord: 13, Ycoord: 14}, {Xcoord: 14, Ycoord: 14},
 		{Xcoord: 12, Ycoord: 15}, {Xcoord: 13, Ycoord: 15}, {Xcoord: 14, Ycoord: 15},
 		{Xcoord: 12, Ycoord: 16}, {Xcoord: 13, Ycoord: 16}, {Xcoord: 14, Ycoord: 16},
-		{Xcoord: 12, Ycoord: 17}, {Xcoord: 13, Ycoord: 17}, {Xcoord: 14, Ycoord: 17},
 	}
 	assert.ElementsMatch(t, expected, footprint)
 }

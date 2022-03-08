@@ -140,21 +140,28 @@ func (current Position) Footprint(move Move) (footprint []Cell) {
 
 	// Hardcoded forward right and left rotation (on the spot)
 	if move == ForwardRightRotation || move == ForwardLeftRotation {
-		// Add the cells surrounding
-		for i := -1; i <= 1; i++ {
-			for j := -1; j <= 1; j++ {
-				footprint = append(footprint, Cell{
-					Xcoord: current.Cell.Xcoord + i,
-					Ycoord: current.Cell.Ycoord + j,
-				})
+		getCellsSameDirection := func(position Position, moveNum int) (cells []Cell) {
+			cells = append(cells, position.Cell)
+			for i := 0; i < moveNum; i++ {
+				position = position.Transition(Forward)
+				cells = append(cells, position.Cell)
 			}
+			return
 		}
 
-		tmpNext := current.Transition(Forward, Forward)
-		footprint = append(footprint, tmpNext.Cell)
-		tmpNext.Direction = next.Direction
-		tmpNext = tmpNext.Transition(Forward)
-		footprint = append(footprint, tmpNext.Cell)
+		// Backward next's direction
+		backwardPos := next.Transition(Backward)
+		backwardPos.Direction = current.Direction
+		footprint = append(footprint, getCellsSameDirection(backwardPos, 1)...)
+
+		// Center
+		footprint = append(footprint, getCellsSameDirection(current, 2)...)
+
+		// Forward next's direction
+		forwardPos := next.Transition(Forward)
+		forwardPos.Direction = current.Direction
+		footprint = append(footprint, getCellsSameDirection(forwardPos, 2)...)
+		
 		return
 	}
 
