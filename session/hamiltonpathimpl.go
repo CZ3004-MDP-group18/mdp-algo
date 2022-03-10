@@ -126,7 +126,7 @@ func (s *sessionImpl) hamiltonPath(imageCells []common.Cell) HamiltonPlan {
 	imageNum := len(imageCells)
 	perms := combin.Permutations(imageNum, imageNum)
 
-	for permIndex, perm := range perms {
+	for _, perm := range perms {
 		var imageCellOrders []common.Cell
 		for _, i := range perm {
 			imageCellOrders = append(imageCellOrders, imageCells[i])
@@ -182,7 +182,7 @@ func (s *sessionImpl) hamiltonPath(imageCells []common.Cell) HamiltonPlan {
 			optimalOrder = imageCellOrders
 			optimalDetectImageIndices = detectImageIndices
 		}
-		fmt.Println("Permutation", permIndex)
+		//fmt.Println("Permutation", permIndex)
 	}
 
 	return HamiltonPlan{
@@ -194,35 +194,39 @@ func (s *sessionImpl) hamiltonPath(imageCells []common.Cell) HamiltonPlan {
 }
 
 func (s *sessionImpl) HamiltonPath() HamiltonPlan {
+	// Init Result
+	globalPlan := HamiltonPlan{
+		Cost:               math.MaxInt64,
+		Path:               nil,
+		Order:              nil,
+		DetectImageIndices: nil,
+	}
+
 	// Init plan cache
 	s.planCache = make(map[common.Position]map[common.Cell]Plan)
 
 	s.initDetectPositions()
 
-	hamiltonPath := s.hamiltonPath(s.imageCells)
-
-	// Fallback plan in case some imageCells are not reachable
-	if hamiltonPath.Cost == math.MaxInt64 {
-		reachableImageCellSet := make(map[common.Cell]bool)
-
-		// Check planCache to find reachable imageCell
-		for _, cellToPlan := range s.planCache {
-			for imageCell, plan := range cellToPlan {
-				if plan.Cost < math.MaxInt64 {
-					reachableImageCellSet[imageCell] = true
-				}
+	imageNum := len(s.imageCells)
+	for k := imageNum; k >= 0; k-- {
+		// Get combination
+		for _, comb := range combin.Combinations(imageNum, k) {
+			var combImageCells []common.Cell
+			for _, i := range comb {
+				combImageCells = append(combImageCells, s.imageCells[i])
+			}
+			localPlan := s.hamiltonPath(combImageCells)
+			if localPlan.Cost < globalPlan.Cost {
+				globalPlan = localPlan
 			}
 		}
 
-		var reachableImageCells []common.Cell
-		for imageCell := range reachableImageCellSet {
-			reachableImageCells = append(reachableImageCells, imageCell)
+		if globalPlan.Cost < math.MaxInt64 {
+			break
 		}
-
-		hamiltonPath = s.hamiltonPath(reachableImageCells)
 	}
 
-	return hamiltonPath
+	return globalPlan
 }
 
 // expand is a helper function for the shortestPath

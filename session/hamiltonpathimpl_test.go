@@ -25,7 +25,7 @@ func (s *HamiltonPathTestSuite) SetupTest() {
 			Xcoord: 2,
 			Ycoord: 17,
 		},
-		Direction: common.East,
+		Direction: common.North,
 	}
 	s.Session = NewSession(20, 20, s.startPos)
 
@@ -52,6 +52,13 @@ func (s *HamiltonPathTestSuite) SetupTest() {
 		{"O", "O", "O", "O", "O", "O", "O", "O", "N", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"},
 	}
 	s.Session.LoadArena(s.arena)
+
+	arenaStr, err := ioutil.ReadFile("./assets/tmp_why2.txt")
+	if err != nil {
+		panic(err)
+	}
+	arena := parseArenaStr(string(arenaStr), 20)
+	s.Session.LoadArena(arena)
 }
 
 func (s *HamiltonPathTestSuite) TestHamiltonPath() {

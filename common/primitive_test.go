@@ -186,17 +186,17 @@ func TestTurnOnTheSpotFootprint(t *testing.T) {
 
 	footprint := start.Footprint(ForwardLeftRotation)
 	expected := []Cell{
-		{Xcoord: 12, Ycoord: 14}, {Xcoord: 13, Ycoord: 14},
-		{Xcoord: 12, Ycoord: 15}, {Xcoord: 13, Ycoord: 15}, {Xcoord: 14, Ycoord: 15},
-		{Xcoord: 12, Ycoord: 16}, {Xcoord: 13, Ycoord: 16}, {Xcoord: 14, Ycoord: 16},
+		{Xcoord: 12, Ycoord: 14},
+		{Xcoord: 12, Ycoord: 15}, {Xcoord: 13, Ycoord: 15},
+		{Xcoord: 12, Ycoord: 16}, {Xcoord: 13, Ycoord: 16},
 	}
 	assert.ElementsMatch(t, expected, footprint)
 
 	footprint = start.Footprint(ForwardRightRotation)
 	expected = []Cell{
-		{Xcoord: 13, Ycoord: 14}, {Xcoord: 14, Ycoord: 14},
-		{Xcoord: 12, Ycoord: 15}, {Xcoord: 13, Ycoord: 15}, {Xcoord: 14, Ycoord: 15},
-		{Xcoord: 12, Ycoord: 16}, {Xcoord: 13, Ycoord: 16}, {Xcoord: 14, Ycoord: 16},
+		{Xcoord: 14, Ycoord: 14},
+		{Xcoord: 13, Ycoord: 15}, {Xcoord: 14, Ycoord: 15},
+		{Xcoord: 13, Ycoord: 16}, {Xcoord: 14, Ycoord: 16},
 	}
 	assert.ElementsMatch(t, expected, footprint)
 }

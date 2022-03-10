@@ -150,18 +150,18 @@ func (current Position) Footprint(move Move) (footprint []Cell) {
 		}
 
 		// Backward next's direction
-		backwardPos := next.Transition(Backward)
-		backwardPos.Direction = current.Direction
-		footprint = append(footprint, getCellsSameDirection(backwardPos, 1)...)
+		//backwardPos := next.Transition(Backward)
+		//backwardPos.Direction = current.Direction
+		//footprint = append(footprint, getCellsSameDirection(backwardPos, 1)...)
 
 		// Center
-		footprint = append(footprint, getCellsSameDirection(current, 2)...)
+		footprint = append(footprint, getCellsSameDirection(current, 1)...)
 
 		// Forward next's direction
 		forwardPos := next.Transition(Forward)
 		forwardPos.Direction = current.Direction
 		footprint = append(footprint, getCellsSameDirection(forwardPos, 2)...)
-		
+
 		return
 	}
 
