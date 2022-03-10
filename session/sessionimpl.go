@@ -1,6 +1,10 @@
 package session
 
-import "mdp_algo/common"
+import (
+	"fmt"
+	"mdp_algo/common"
+	"strings"
+)
 
 type cellStateEnum string
 
@@ -147,6 +151,17 @@ func (s *sessionImpl) getVirtualCellState(cell common.Cell) cellState {
 	}
 	return cellState{state: obstacle}
 }
+
+func (s *sessionImpl) logArena() {
+	for Ycoord := 0; Ycoord < s.height; Ycoord++ {
+		var row []string
+		for Xcoord := 0; Xcoord < s.width; Xcoord++ {
+			row = append(row, string(s.virtualArena[Ycoord][Xcoord].state))
+		}
+		fmt.Println(strings.Join(row, ""))
+	}
+}
+
 func (s *sessionImpl) FastestPath() Plan {
 	return Plan{}
 }

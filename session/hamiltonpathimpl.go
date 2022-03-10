@@ -194,6 +194,9 @@ func (s *sessionImpl) hamiltonPath(imageCells []common.Cell) HamiltonPlan {
 }
 
 func (s *sessionImpl) HamiltonPath() HamiltonPlan {
+	// Log arena for debug
+	s.logArena()
+
 	// Init Result
 	globalPlan := HamiltonPlan{
 		Cost:               math.MaxInt64,
