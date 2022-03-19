@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './App.vue'
+import App from './App.vue.txt'
 import { BootstrapVue} from 'bootstrap-vue'
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
